@@ -7,10 +7,11 @@ Every layer is tested, from pure functions to a real phone browser against the f
 | Unit (Python) | `tests/unit` | nothing; a `FakeRepo` replaces Neo4j | `task test` |
 | Unit (mobile) | `mobile/**/*.spec.ts` | Docker | `task test_mobile` |
 | Docs (generator, navigation) | `tests/unit/test_docs.py` | nothing | `task test` |
+| Project metadata copies | `tests/unit/test_sync.py` | nothing | `task test` (fix with `task sync`) |
 | Docs (build) | `docs/` | nothing | `task docs` (strict; also runs in CI and the docs image) |
 | Integration | `tests/integration` | the running stack | `task test_int` |
-| Browser (e2e) | `tests/e2e` | the stack + Chromium | `task test_e2e` |
-| Load | `tests/load/locustfile.py` | the stack | `task load` / `task load_ui` |
+| Browser (e2e) | `tests/e2e` | the stack + Chromium, `uv sync --group e2e` | `task test_e2e` |
+| Load | `tests/load/locustfile.py` | the stack, `uv sync --group load` | `task load` / `task load_ui` |
 
 `task verify` runs all of them in order and always tears the stack down, the same gate as CI.
 `task watch` re-runs the Python unit tests on every save.
@@ -18,7 +19,10 @@ Every layer is tested, from pure functions to a real phone browser against the f
 ## What each layer proves
 
 - **Unit**: the API, the UI (wired to the real API app in-process), the site manifest
-  rules, settings, and the docs generator.
+  rules, settings, the docs generator, and that every copy of `project.toml` and the theme
+  is current. Assertions read names and colours from `sgaffald.meta` and the manifest, never
+  literals, so a renamed fork's tests still pass. Without the `e2e` group, pytest skips
+  collecting `tests/e2e`.
 - **Mobile unit**: services, the theme maths, the side menu, the content and sign-in pages
   (Vitest, mocked HTTP). Runs inside the image build, so a failing spec fails the build.
 - **Integration**: every container against every other, including writes reaching Neo4j,

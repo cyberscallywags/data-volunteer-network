@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
+import meta from './meta.json';
 import { SessionService } from './session.service';
 
 describe('SessionService', () => {
@@ -12,6 +13,6 @@ describe('SessionService', () => {
     expect(session.member()?.name).toBe('Ada');
     session.signOut();
     expect(session.member()).toBeNull();
-    expect(localStorage.getItem('sgaffald.member')).toBeNull();
+    expect(localStorage.getItem(`${meta.slug}.member`)).toBeNull();
   });
 });

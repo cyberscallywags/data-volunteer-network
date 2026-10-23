@@ -9,6 +9,9 @@ import pytest
 from neo4j import GraphDatabase
 from playwright.sync_api import Page, expect
 
+from sgaffald.content import get_site
+from sgaffald.meta import get_meta
+
 pytestmark = pytest.mark.e2e
 
 UI = os.getenv("UI_URL", "http://localhost:8080")
@@ -37,12 +40,13 @@ def page_errors(page: Page) -> list[str]:
 
 
 def test_ui_welcome_renders_the_site_manifest(page: Page, page_errors):
+    site = get_site()
     page.goto(UI)
-    expect(page).to_have_title(re.compile("Sgaffald"))
-    expect(page.get_by_role("heading", name="Sgaffald")).to_be_visible()
+    expect(page).to_have_title(re.compile(re.escape(site.brand.name)))
+    expect(page.get_by_role("heading", name=site.brand.name)).to_be_visible()
     expect(page.get_by_role("heading", name="Planning the application")).to_be_visible()
     page.get_by_role("link", name="About").click()
-    expect(page.get_by_role("heading", name="About Cyber Scallywags")).to_be_visible()
+    expect(page.get_by_role("heading", name=site.about.title)).to_be_visible()
     assert page_errors == []
 
 
@@ -92,7 +96,9 @@ def test_ui_requires_name(page: Page):
 def test_admin_shows_healthy_stack(page: Page):
     page.goto(ADMIN)
     main = page.get_by_test_id("stMain")
-    expect(main.get_by_role("heading", name="Sgaffald admin")).to_be_visible(timeout=30_000)
+    expect(main.get_by_role("heading", name=f"{get_meta().name} admin")).to_be_visible(
+        timeout=30_000
+    )
     expect(main.get_by_text('"neo4j":true')).to_be_visible()
     expect(main.get_by_text('"edition":"enterprise"')).to_be_visible()
     expect(page.get_by_test_id("stDataFrame")).to_be_visible()

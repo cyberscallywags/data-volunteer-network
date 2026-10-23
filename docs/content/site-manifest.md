@@ -7,7 +7,7 @@ and the same pages without either being redeployed.
 
 | Key | What it drives |
 |---|---|
-| `brand` | Name, tagline and collective, shown in headers, heroes and footers |
+| `brand` | Tagline, plus an optional name and collective (both default to `project.toml`'s), shown in headers, heroes and footers |
 | `theme` | `primary`, `secondary`, `tertiary`: Ionic colour variables on mobile, Bootstrap overrides on web |
 | `welcome` | The landing page, for planning the application |
 | `pages` | Project pages, listed in order in the mobile side menu and the web navbar (`/p/<slug>`) |
@@ -15,6 +15,23 @@ and the same pages without either being redeployed.
 
 `docs_url` is added by the API from the `DOCS_URL` setting, not stored in the file, because
 it differs per deployment.
+
+## Content and identity
+
+The manifest holds content, which changes often. The project's identity (name, organisation,
+repository, app id) lives in `project.toml` at the repository root and changes when the
+project is created or renamed; the version lives in `pyproject.toml`.
+
+| File | Owns | Read when |
+|---|---|---|
+| `project.toml` | Name, slug, description, organisation, repository, mobile app id, copyright year | Build and start-up (`sgaffald.meta`) |
+| `site.json` | Tagline, theme colours, pages and sections | Runtime (`GET /site`) |
+| `pyproject.toml` | Version, dependencies, tooling | Build |
+
+Some consumers cannot read either file at run time: the Zensical config, the mobile app's
+first paint and SCSS defaults, the compose variables and the README badges. `uv run task sync`
+copies the values there, and a unit test fails if any copy is stale. See
+[Project metadata](reference/project-metadata.md) for the current values.
 
 ## Pages and sections
 

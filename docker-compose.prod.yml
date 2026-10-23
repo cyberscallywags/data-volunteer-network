@@ -1,5 +1,6 @@
 # Production overlay: released images from GHCR, no local builds, no exposed database.
-# uv run task prod_up   (= docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.prod.yml up)
+# uv run task prod_up   (= docker compose --env-file .env.project --env-file .env.production
+#                          -f docker-compose.yml -f docker-compose.prod.yml up)
 
 x-release: &release
   build: !reset null

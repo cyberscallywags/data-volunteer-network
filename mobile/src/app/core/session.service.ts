@@ -1,11 +1,13 @@
 import { Injectable, signal } from '@angular/core';
 
+import meta from './meta.json';
+
 export interface Member {
   name: string;
   email: string;
 }
 
-const KEY = 'sgaffald.member';
+const KEY = `${meta.slug}.member`;
 
 /**
  * Sign-on placeholder: remembers who is using this device so the menu can greet them.

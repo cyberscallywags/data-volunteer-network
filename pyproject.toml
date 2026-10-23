@@ -1,7 +1,7 @@
 [project]
 name = "sgaffald"
 version = "0.1.0"
-description = "CyberScallywags base template: FastAPI + FastUI + Streamlit + Neo4j Enterprise"
+description = "Cyber Scallywags base template: FastAPI, FastUI, Streamlit, Ionic and Neo4j"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
@@ -60,6 +60,10 @@ default-groups = ["dev", "docs"]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+# Installed services (the Docker images) read project identity from inside the package.
+[tool.hatch.build.targets.wheel.force-include]
+"project.toml" = "sgaffald/project.toml"
+
 # ---------------------------------------------------------------- taskipy
 # Test env:   uses .env.test (committed, throwaway secrets)
 # Production: uses .env.production (never committed; copy .env.production.example)
@@ -67,13 +71,14 @@ build-backend = "hatchling.build"
 use_vars = true
 
 [tool.taskipy.variables]
-compose_test = "docker compose --env-file .env.test"
-compose_prod = "docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.prod.yml"
+compose_test = "docker compose --env-file .env.project --env-file .env.test"
+compose_prod = "docker compose --env-file .env.project --env-file .env.production -f docker-compose.yml -f docker-compose.prod.yml"
 # Portal first (its --clean empties the site dir), then the manual into site/manual.
 docs_build = "python -m sgaffald.docgen && zensical build --strict --clean -f docs/zensical.toml && sphinx-build -W --keep-going -q -b html -c docs/sphinx docs/content docs/_build/site/manual"
 
 [tool.taskipy.tasks]
 clean = { cmd = "rm -rf .venv .pytest_cache .ruff_cache .coverage coverage.xml htmlcov docs/_build docs/.cache mobile/node_modules mobile/.angular mobile/www && find . -name __pycache__ -type d -prune -exec rm -rf {} +", help = "Delete every regenerable directory (then uv sync to rebuild .venv)" }
+sync = { cmd = "python scripts/sync_meta.py", help = "Copy project.toml and site.json into the files that cannot read them" }
 lint = { cmd = "ruff check . && ruff format --check .", help = "Ruff lint + format check" }
 format = { cmd = "ruff format . && ruff check --fix .", help = "Auto-format and fix" }
 hooks = { cmd = "pre-commit run --all-files", help = "Run every pre-commit hook" }

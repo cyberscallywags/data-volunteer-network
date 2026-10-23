@@ -14,10 +14,11 @@ part and is ready to be renamed and grown into a real project.
 ## Quick start
 
 ```bash
-uv sync                               # Python 3.14 + all dev and docs tools
+uv sync                               # Python 3.14 + the dev and docs tools
 uv run pre-commit install
 uv run task --list                    # every task (see Reference → Tasks)
-uv run playwright install chromium    # browser for the e2e tests
+uv sync --all-groups                  # + Playwright, Locust and Streamlit, for the full gate
+uv run playwright install chromium    # the only browser the e2e tests use
 uv run task verify                    # lint → unit → stack → integration → browser → Locust → teardown
 ```
 
@@ -52,3 +53,33 @@ uv run task docs_live_manual   # live-reload the Sphinx manual
 ```
 
 See [The docs site](services/docs.md) for how the two engines share one set of pages.
+
+## Dependency groups
+
+`uv sync` installs the `dev` and `docs` groups, enough for linting, unit tests and the docs.
+The heavier tools are separate groups, installed when you need them:
+
+| Group | Adds | Needed for |
+|---|---|---|
+| `e2e` | Playwright | `task test_e2e` |
+| `load` | Locust | `task load`, `task load_ui` |
+| `admin` | Streamlit (with pyarrow and pandas) | running the admin portal outside Docker |
+
+`uv sync --group e2e` adds one; `uv sync --all-groups` adds them all, and `task verify` does
+that itself.
+
+## Reclaiming disk space
+
+Almost everything in a working copy can be rebuilt. `uv run task clean` deletes `.venv`,
+the test and lint caches, the docs build and the mobile app's `node_modules`, `.angular`
+and `www`; `uv sync` brings the virtualenv back. Two caches outside the project also grow
+over time, and are shared with your other projects:
+
+```bash
+uv cache prune                         # drop unused entries from uv's cache
+uv run playwright uninstall --all      # remove every downloaded browser...
+uv run playwright install chromium     # ...and fetch back the one the tests use
+```
+
+To share or archive the template, use `git archive HEAD -o sgaffald.zip` rather than zipping
+the folder, so only tracked files go in.

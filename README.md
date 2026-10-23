@@ -1,6 +1,7 @@
+<!-- Title and badges are generated from project.toml by `uv run task sync`. -->
+<!-- sync:header -->
 # Sgaffald
 
-<!-- Replace OWNER/REPO with the GitHub owner and repository name after renaming the template. -->
 [![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/ci.yml)
 [![Release](https://github.com/OWNER/REPO/actions/workflows/release.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/release.yml)
 [![Coverage](https://codecov.io/gh/OWNER/REPO/graph/badge.svg)](https://codecov.io/gh/OWNER/REPO)
@@ -15,6 +16,7 @@
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](.pre-commit-config.yaml)
+<!-- /sync:header -->
 
 CyberScallywags base template. The smallest stack that connects every part and is ready to
 be renamed and grown into a real project.
@@ -31,10 +33,11 @@ be renamed and grown into a real project.
 ## Quick start
 
 ```bash
-uv sync                    # Python 3.14 + all dev and docs tools
+uv sync                    # Python 3.14 + the dev and docs tools
 uv run pre-commit install
 uv run task --list         # every task
-uv run playwright install chromium   # browser for the e2e tests
+uv sync --all-groups       # + Playwright, Locust and Streamlit, for the full gate
+uv run playwright install chromium   # the only browser the e2e tests use
 uv run task verify         # lint → unit → build+start stack → integration → browser → Locust → teardown
 ```
 

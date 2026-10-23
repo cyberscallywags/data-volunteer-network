@@ -14,9 +14,10 @@ from fastui.events import GoToEvent
 from fastui.forms import fastui_form
 
 from sgaffald.config import get_settings
+from sgaffald.meta import get_meta
 from sgaffald.models import Brand, ContentPage, Item, ItemIn, Section, Site, Theme
 
-app = FastAPI(title="sgaffald-ui")
+app = FastAPI(title=f"{get_meta().slug}-ui")
 
 
 def api() -> httpx.AsyncClient:
@@ -186,13 +187,14 @@ async def create_item(form: Annotated[ItemIn, fastui_form(ItemIn)]) -> list[AnyC
 
 @app.get("/{path:path}")
 async def html_landing() -> HTMLResponse:
-    html = prebuilt_html(title="Sgaffald")
+    name = get_meta().name
+    html = prebuilt_html(title=name)
     try:
         site = await fetch_site()
     except httpx.HTTPError:
         return HTMLResponse(html)  # unthemed shell; the page itself reports the API error
     return HTMLResponse(
         html.replace("</head>", f"{theme_css(site.theme)}</head>", 1).replace(
-            "<title>Sgaffald</title>", f"<title>{site.brand.name}</title>", 1
+            f"<title>{name}</title>", f"<title>{site.brand.name}</title>", 1
         )
     )

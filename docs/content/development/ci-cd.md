@@ -8,7 +8,7 @@ GitHub Actions in `.github/workflows`:
 | `release.yml` | merge to `main` | re-runs CI, then pushes `ghcr.io/<owner>/<repo>/<service>:main` and `:sha-<commit>` |
 | `release.yml` | tag `vX.Y.Z` | promotes the already-tested `:sha-<commit>` images to `:vX.Y.Z` and `:latest`, with no rebuild |
 | `issue-to-project.yml` | issue opened | adds it to the GitHub Project |
-| `new-issue.yml` | manual (Actions tab) | creates a feature, bug or task issue from `.github/issue-templates/` and adds it to the Project |
+| `new-issue.yml` | manual (Actions tab) | creates a feature, bug or task issue, its body built from the matching `.github/ISSUE_TEMPLATE/` form, and adds it to the Project |
 
 Issue forms for people live in `.github/ISSUE_TEMPLATE/`. Images are published for `api`,
 `ui`, `admin`, `mobile` and `docs`.

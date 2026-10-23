@@ -36,8 +36,10 @@ describe('AppComponent', () => {
     const el: HTMLElement = setup().nativeElement;
     const about = el.querySelector('ion-footer ion-item');
     expect(about?.getAttribute('href')).toBe('/about');
-    expect(about?.innerHTML).toContain('About Cyber Scallywags');
-    expect(el.querySelector('ion-footer ion-note')?.innerHTML).toContain('A Cyber Scallywags project');
+    expect(about?.innerHTML).toContain(SITE.about.title);
+    expect(el.querySelector('ion-footer ion-note')?.innerHTML).toContain(
+      `A ${SITE.brand.collective} project`,
+    );
   });
 
   it('links to the docs portal when the API provides a docs URL', () => {

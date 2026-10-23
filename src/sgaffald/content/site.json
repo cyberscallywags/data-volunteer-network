@@ -1,8 +1,6 @@
 {
   "brand": {
-    "name": "Sgaffald",
     "tagline": "Scaffolding for the next project, ready to be renamed and grown.",
-    "collective": "Cyber Scallywags",
     "collective_url": null
   },
   "theme": {

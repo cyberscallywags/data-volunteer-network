@@ -1,5 +1,6 @@
 # Actions tab -> "New templated issue" -> Run workflow.
-# Creates an issue from .github/issue-templates/<kind>.md, labels it, and adds it to PROJECT_URL.
+# Creates an issue whose body has one heading per field of the web form .github/ISSUE_TEMPLATE/<kind>.yml
+# (with its placeholder or default text), labels it, and adds it to PROJECT_URL.
 name: New templated issue
 
 on:
@@ -34,7 +35,14 @@ jobs:
           TITLE: ${{ inputs.title }}
           SUMMARY: ${{ inputs.summary }}
         run: |
-          { printf '## Summary\n%s\n\n' "${SUMMARY:-_TBC_}"; cat ".github/issue-templates/$KIND.md"; } > body.md
+          {
+            printf '## Summary\n%s\n\n' "${SUMMARY:-_TBC_}"
+            # yq is preinstalled on GitHub's Ubuntu runners
+            yq '.body[] | select(.attributes.label) | "## " + .attributes.label + "\n"
+              + (.attributes.value // .attributes.placeholder
+                 // (.attributes.options // [] | join(" / ")) // "") + "\n"' \
+              ".github/ISSUE_TEMPLATE/$KIND.yml"
+          } > body.md
           gh label create "$KIND" --force >/dev/null
           url=$(gh issue create --title "$TITLE" --body-file body.md --label "$KIND")
           echo "url=$url" >> "$GITHUB_OUTPUT"

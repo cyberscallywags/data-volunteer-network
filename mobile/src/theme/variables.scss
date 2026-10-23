@@ -2,19 +2,6 @@
 // https://ionicframework.com/docs/theming/
 //
 // Brand colours arrive at runtime from GET /site (see app/core/theme.ts), which overrides
-// these. The defaults match content/site.json so the first paint is already on-brand.
-:root {
-  --ion-color-primary: #1b4965;
-  --ion-color-primary-rgb: 27, 73, 101;
-  --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #184059;
-  --ion-color-primary-tint: #325b74;
-
-  --ion-color-tertiary: #e4572e;
-  --ion-color-tertiary-rgb: 228, 87, 46;
-  --ion-color-tertiary-contrast: #000000;
-  --ion-color-tertiary-contrast-rgb: 0, 0, 0;
-  --ion-color-tertiary-shade: #c94d28;
-  --ion-color-tertiary-tint: #e76843;
-}
+// these. _brand.scss is generated from content/site.json (`uv run task sync`), so the first
+// paint is already on-brand.
+@use 'brand';

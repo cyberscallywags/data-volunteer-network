@@ -3,10 +3,13 @@
 # with the toctrees in content/manual.md; tests/unit/test_docs.py checks both.
 
 [project]
+# Between the sync: markers, generated from project.toml by `uv run task sync`.
+# sync:identity
 site_name = "Sgaffald"
 site_description = "Cyber Scallywags base template: FastAPI, FastUI, Streamlit, Ionic and Neo4j"
 site_author = "Cyber Scallywags"
 copyright = "© 2026 Cyber Scallywags · Play • Learn • Share • Grow"
+# /sync:identity
 docs_dir = "content"
 site_dir = "_build/site"
 # Sphinx-only pages; the manual is built into _build/site/manual after the portal.
@@ -42,6 +45,7 @@ nav = [
     "reference/configuration.md",
     "reference/tasks.md",
     "reference/site-sample.md",
+    "reference/project-metadata.md",
     "reference/python-api.md",
     { "Manual (Sphinx)" = "/manual/" },
   ] },
@@ -83,10 +87,12 @@ scheme = "default"
 toggle.icon = "lucide/moon"
 toggle.name = "Switch to dark mode"
 
+# sync:social
 [[project.extra.social]]
 icon = "lucide/globe"
 link = "https://cyberscallywags.com"
 name = "Cyber Scallywags"
+# /sync:social
 
 [project.markdown_extensions]
 admonition = {}

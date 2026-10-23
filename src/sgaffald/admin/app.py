@@ -7,10 +7,12 @@ import streamlit as st
 
 from sgaffald.config import get_settings
 from sgaffald.db import make_driver
+from sgaffald.meta import get_meta
 
 settings = get_settings()
-st.set_page_config(page_title="Sgaffald admin", layout="wide")
-st.title("Sgaffald admin")
+title = f"{get_meta().name} admin"
+st.set_page_config(page_title=title, layout="wide")
+st.title(title)
 st.caption(f"Environment: **{settings.app_env}**")
 
 

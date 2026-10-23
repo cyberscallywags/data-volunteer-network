@@ -6,6 +6,8 @@ import os
 import pytest
 from playwright.sync_api import Page, expect
 
+from sgaffald.meta import get_meta
+
 pytestmark = pytest.mark.e2e
 
 DOCS = os.getenv("DOCS_URL", "http://localhost:8200")
@@ -52,5 +54,5 @@ def test_manual_is_dark_first_and_links_back_to_the_portal(page: Page):
     page.goto(f"{DOCS}/manual/")
     expect(page).to_have_url(f"{DOCS}/manual/manual.html")
     assert page.evaluate("getComputedStyle(document.body).backgroundColor") == NIGHT
-    page.get_by_role("link", name="Sgaffald docs portal").click()
+    page.get_by_role("link", name=f"{get_meta().name} docs portal").click()
     expect(page).to_have_url(f"{DOCS}/")

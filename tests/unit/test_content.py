@@ -4,6 +4,7 @@ import pytest
 from pydantic import ValidationError
 
 from sgaffald.content import DEFAULT_SITE_FILE, load_site
+from sgaffald.meta import get_meta
 from sgaffald.models import Site
 
 
@@ -13,8 +14,17 @@ def sample() -> dict:
 
 def test_bundled_sample_is_valid():
     site = load_site(DEFAULT_SITE_FILE)
-    assert site.brand.name == "Sgaffald"
+    assert site.brand.name == get_meta().name
     assert site.pages, "the sample should show at least one sidebar page"
+
+
+def test_a_manifest_can_override_the_project_identity(tmp_path):
+    data = sample()
+    data["brand"] |= {"name": "Prosiect", "collective": "Criw"}
+    custom = tmp_path / "site.json"
+    custom.write_text(json.dumps(data))
+    brand = load_site(custom).brand
+    assert (brand.name, brand.collective) == ("Prosiect", "Criw")
 
 
 def test_page_lookup_by_slug():

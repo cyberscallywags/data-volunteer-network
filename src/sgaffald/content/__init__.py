@@ -4,13 +4,19 @@ from functools import lru_cache
 from pathlib import Path
 
 from sgaffald.config import get_settings
+from sgaffald.meta import get_meta
 from sgaffald.models import Site
 
 DEFAULT_SITE_FILE = Path(__file__).with_name("site.json")
 
 
 def load_site(path: Path) -> Site:
-    return Site.model_validate_json(path.read_bytes())
+    """Validate a manifest, filling the brand name and collective from project.toml."""
+    site = Site.model_validate_json(path.read_bytes())
+    meta = get_meta()
+    site.brand.name = site.brand.name or meta.name
+    site.brand.collective = site.brand.collective or meta.organisation.name
+    return site
 
 
 @lru_cache

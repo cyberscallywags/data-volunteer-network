@@ -23,13 +23,13 @@ describe('ContentPage', () => {
 
   it('shows the brand hero and planning steps on welcome', () => {
     const el = render('welcome');
-    expect(el.querySelector('.hero h1')?.textContent).toBe('Sgaffald');
+    expect(el.querySelector('.hero h1')?.textContent).toBe(SITE.brand.name);
     expect(el.textContent).toContain('Plan it, ship it');
     expect(el.textContent).toContain('Name the domain');
   });
 
   it('renders the About page for the collective', () => {
-    expect(render('about').textContent).toContain('About Cyber Scallywags');
+    expect(render('about').textContent).toContain(SITE.about.title);
   });
 
   it('renders a sidebar page by slug', () => {

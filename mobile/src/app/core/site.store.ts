@@ -3,10 +3,11 @@ import { Injectable, effect, inject, signal } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { ApiService, ContentPage, Site } from './api.service';
+import meta from './meta.json';
 import { FALLBACK_SITE } from './site.fallback';
 import { applyTheme } from './theme';
 
-const CACHE_KEY = 'sgaffald.site';
+const CACHE_KEY = `${meta.slug}.site`;
 
 /** The site manifest from GET /site, cached on the device so the app opens offline. */
 @Injectable({ providedIn: 'root' })

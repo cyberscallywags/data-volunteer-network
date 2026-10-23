@@ -14,10 +14,13 @@ sys.path.insert(0, str(HERE.parents[1] / "src"))  # autodoc imports sgaffald wit
 # own models (extra="allow") fail to build, and sgaffald.api/ui could not be documented.
 import fastapi  # noqa: E402, F401
 
-project = "Sgaffald"
-author = "Cyber Scallywags"
-copyright = "2026, Cyber Scallywags"  # noqa: A001 - Sphinx's name for it
-release = "0.1.0"
+from sgaffald.meta import get_meta  # noqa: E402
+
+meta = get_meta()  # project.toml, plus the version from pyproject.toml
+project = meta.name
+author = meta.organisation.name
+copyright = f"{meta.year}, {meta.organisation.name}"  # noqa: A001 - Sphinx's name for it
+release = meta.version
 
 extensions = [
     "myst_parser",
@@ -51,7 +54,7 @@ autodoc_default_options = {"members": True, "show-inheritance": True}
 
 # ---------------------------------------------------------------- Scallywag Neon on Furo
 html_theme = "furo"
-html_title = "Sgaffald manual"
+html_title = f"{meta.name} manual"
 html_static_path = ["_static", "../content/assets/stylesheets"]
 html_css_files = ["scallywag.css", "furo.css"]
 html_js_files = ["dark-first.js"]
@@ -70,9 +73,15 @@ _shared = {
 html_theme_options = {
     "sidebar_hide_name": False,
     "navigation_with_keys": True,
-    "announcement": (
-        'Part of the <a href="/">Sgaffald docs portal</a> · '
-        "Cyber Scallywags · Play • Learn • Share • Grow"
+    "announcement": " · ".join(
+        filter(
+            None,
+            [
+                f'Part of the <a href="/">{meta.name} docs portal</a>',
+                meta.organisation.name,
+                meta.organisation.motto,
+            ],
+        )
     ),
     "light_css_variables": {
         **_shared,

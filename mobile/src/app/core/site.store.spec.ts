@@ -34,7 +34,7 @@ describe('SiteStore', () => {
     const store = setup();
     store.load();
     expect(store.page('welcome')?.title).toBe('Welcome');
-    expect(store.page('about')?.title).toBe('About Cyber Scallywags');
+    expect(store.page('about')?.title).toBe(SITE.about.title);
     expect(store.page('roadmap')?.title).toBe('Roadmap');
     expect(store.page('missing')).toBeUndefined();
   });
@@ -45,6 +45,6 @@ describe('SiteStore', () => {
     TestBed.tick();
     const root = document.documentElement;
     expect(root.style.getPropertyValue('--ion-color-primary')).toBe(SITE.theme.primary);
-    expect(TestBed.inject(Title).getTitle()).toBe('Sgaffald');
+    expect(TestBed.inject(Title).getTitle()).toBe(SITE.brand.name);
   });
 });

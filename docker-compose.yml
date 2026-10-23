@@ -1,4 +1,4 @@
-# Test / local stack. Run with:  uv run task up   (uses --env-file .env.test)
+# Test / local stack. Run with:  uv run task up   (uses --env-file .env.project --env-file .env.test)
 # Production overrides live in docker-compose.prod.yml.
 
 x-app-env: &app-env
@@ -40,7 +40,7 @@ services:
       start_period: 30s
 
   api:
-    image: ${IMAGE_PREFIX:-sgaffald}/api:${IMAGE_TAG:-local}
+    image: ${IMAGE_PREFIX:?set in .env.project}/api:${IMAGE_TAG:-local}
     build: { context: ., dockerfile: docker/Dockerfile, args: { SERVICE: api } }
     environment: *app-env
     ports: ["8000:8000"]
@@ -50,7 +50,7 @@ services:
       <<: *http-health
 
   ui:
-    image: ${IMAGE_PREFIX:-sgaffald}/ui:${IMAGE_TAG:-local}
+    image: ${IMAGE_PREFIX:?set in .env.project}/ui:${IMAGE_TAG:-local}
     build: { context: ., dockerfile: docker/Dockerfile, args: { SERVICE: ui } }
     environment: *app-env
     ports: ["8080:8080"]
@@ -60,7 +60,7 @@ services:
       <<: *http-health
 
   admin:
-    image: ${IMAGE_PREFIX:-sgaffald}/admin:${IMAGE_TAG:-local}
+    image: ${IMAGE_PREFIX:?set in .env.project}/admin:${IMAGE_TAG:-local}
     build: { context: ., dockerfile: docker/Dockerfile, args: { SERVICE: admin } }
     environment: *app-env
     ports: ["8501:8501"]
@@ -70,7 +70,7 @@ services:
       <<: *http-health
 
   mobile:
-    image: ${IMAGE_PREFIX:-sgaffald}/mobile:${IMAGE_TAG:-local}
+    image: ${IMAGE_PREFIX:?set in .env.project}/mobile:${IMAGE_TAG:-local}
     build: { context: ., dockerfile: docker/mobile.Dockerfile }   # runs lint + unit tests
     environment:
       API_URL: http://api:8000
@@ -81,7 +81,7 @@ services:
       <<: *http-health
 
   docs:   # static docs: Zensical portal at /, Sphinx manual at /manual/
-    image: ${IMAGE_PREFIX:-sgaffald}/docs:${IMAGE_TAG:-local}
+    image: ${IMAGE_PREFIX:?set in .env.project}/docs:${IMAGE_TAG:-local}
     build: { context: ., dockerfile: docker/docs.Dockerfile }   # fails on any docs warning
     ports: ["8200:8080"]
     healthcheck:

@@ -9,6 +9,8 @@ import pytest
 from neo4j import GraphDatabase
 from playwright.sync_api import Page, Playwright, expect
 
+from sgaffald.content import get_site
+
 pytestmark = pytest.mark.e2e
 
 MOBILE = os.getenv("MOBILE_URL", "http://localhost:8100")
@@ -40,16 +42,17 @@ def page_errors(page: Page) -> list[str]:
 
 
 def test_mobile_opens_on_welcome_from_the_site_manifest(page: Page, page_errors):
+    site = get_site()
     page.goto(MOBILE)
-    expect(page).to_have_title("Sgaffald")
+    expect(page).to_have_title(site.brand.name)
     expect(page).to_have_url(re.compile(r"/welcome$"))
-    expect(page.get_by_test_id("page-welcome")).to_contain_text("Sgaffald")
+    expect(page.get_by_test_id("page-welcome")).to_contain_text(site.brand.name)
     expect(page.get_by_text("Planning the application")).to_be_visible()
     # brand colour from GET /site is applied to Ionic's theme
     primary = page.evaluate(
         "getComputedStyle(document.documentElement).getPropertyValue('--ion-color-primary')"
     )
-    assert primary.strip() == "#1b4965"
+    assert primary.strip() == site.theme.primary
     assert page_errors == []
 
 
@@ -59,14 +62,15 @@ def test_mobile_side_menu_reaches_project_pages_and_about(page: Page, page_error
     page.get_by_test_id("menu").get_by_text("Roadmap").tap()
     expect(page.get_by_test_id("page-roadmap")).to_be_visible()
     page.locator("ion-menu-button").last.tap()
-    page.locator("ion-menu ion-footer").get_by_text("About Cyber Scallywags").tap()
-    expect(page.get_by_test_id("page-about")).to_contain_text("Cyber Scallywags")
+    site = get_site()
+    page.locator("ion-menu ion-footer").get_by_text(site.about.title).tap()
+    expect(page.get_by_test_id("page-about")).to_contain_text(site.brand.collective)
     assert page_errors == []
 
 
 def test_mobile_items_shows_healthy_api(page: Page, page_errors):
     page.goto(f"{MOBILE}/items")
-    expect(page).to_have_title("Sgaffald")
+    expect(page).to_have_title(get_site().brand.name)
     expect(page.get_by_test_id("health")).to_contain_text("ok · test")
     assert page.evaluate("matchMedia('(pointer: coarse)').matches")
     assert page_errors == []

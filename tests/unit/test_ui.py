@@ -2,6 +2,8 @@ import httpx
 import pytest
 
 from sgaffald.api.main import app as api_app
+from sgaffald.content import get_site
+from sgaffald.meta import get_meta
 from sgaffald.ui import main as ui
 
 
@@ -30,7 +32,8 @@ async def test_landing_serves_fastui_shell(ui_client):
 
 async def test_landing_is_themed_from_the_site_manifest(ui_client):
     r = await ui_client.get("/")
-    assert "--brand-primary: #1b4965" in r.text
+    assert f"--brand-primary: {get_site().theme.primary}" in r.text
+    assert f"<title>{get_site().brand.name}</title>" in r.text
 
 
 async def test_welcome_renders_the_manifest(ui_client):
@@ -44,7 +47,7 @@ async def test_welcome_renders_the_manifest(ui_client):
 async def test_about_promotes_the_collective(ui_client):
     r = await ui_client.get("/api/about")
     assert r.status_code == 200
-    assert "Cyber Scallywags" in r.text
+    assert get_meta().organisation.name in r.text
 
 
 async def test_content_page_by_slug(ui_client):

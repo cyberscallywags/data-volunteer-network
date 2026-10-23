@@ -14,7 +14,7 @@ export const SITE: Site = {
   },
   about: {
     slug: 'about',
-    title: 'About Cyber Scallywags',
+    title: `About ${FALLBACK_SITE.brand.collective}`,
     icon: 'people-outline',
     sections: [{ kind: 'text', heading: 'Who we are', body: 'A collective', items: [] }],
   },

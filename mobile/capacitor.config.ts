@@ -1,8 +1,10 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
+import meta from './src/app/core/meta.json'; // generated from project.toml
+
 const config: CapacitorConfig = {
-  appId: 'com.cyberscallywags.sgaffald',
-  appName: 'Sgaffald',
+  appId: meta.appId,
+  appName: meta.name,
   webDir: 'www'
 };
 

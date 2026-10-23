@@ -3,6 +3,7 @@ import pytest
 
 from sgaffald.agent import build_agent
 from sgaffald.api.main import app
+from sgaffald.meta import get_meta
 
 
 @pytest.fixture
@@ -54,9 +55,17 @@ async def test_site_serves_the_manifest(client):
     r = await client.get("/site")
     assert r.status_code == 200
     body = r.json()
-    assert body["brand"]["collective"] == "Cyber Scallywags"
+    # site.json leaves the name and collective out, so they come from project.toml
+    assert body["brand"]["name"] == get_meta().name
+    assert body["brand"]["collective"] == get_meta().organisation.name
     assert body["theme"]["primary"].startswith("#")
     assert {"welcome", "about", "pages"} <= body.keys()
+
+
+async def test_openapi_identity_comes_from_project_toml(client):
+    info = (await client.get("/openapi.json")).json()["info"]
+    assert info["title"] == f"{get_meta().slug}-api"
+    assert info["version"] == get_meta().version
 
 
 async def test_site_carries_the_docs_url_from_settings(client, monkeypatch):

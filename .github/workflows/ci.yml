@@ -79,7 +79,7 @@ jobs:
         run: uv run task load
       - name: Stack logs on failure
         if: failure()
-        run: docker compose --env-file .env.test logs --no-color
+        run: docker compose --env-file .env.project --env-file .env.test logs --no-color
       - if: always()
         run: uv run task down
 

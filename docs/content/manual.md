@@ -75,6 +75,7 @@ reference/models
 reference/configuration
 reference/tasks
 reference/site-sample
+reference/project-metadata
 reference/python-api-sphinx
 ```
 

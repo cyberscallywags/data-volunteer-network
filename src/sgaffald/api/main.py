@@ -14,6 +14,7 @@ from sgaffald.agent import Deps, build_agent
 from sgaffald.config import get_settings
 from sgaffald.content import get_site
 from sgaffald.db import ItemRepo, make_driver
+from sgaffald.meta import get_meta
 from sgaffald.models import AskIn, AskOut, Health, Item, ItemIn, Site
 
 
@@ -30,10 +31,11 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     await driver.close()
 
 
+meta = get_meta()
 app = FastAPI(
-    title="sgaffald-api",
-    version="0.1.0",
-    description="Data, content and AI for every Sgaffald frontend. Talks to Neo4j.",
+    title=f"{meta.slug}-api",
+    version=meta.version,
+    description=f"Data, content and AI for every {meta.name} frontend. Talks to Neo4j.",
     lifespan=lifespan,
 )
 app.add_middleware(

@@ -12,6 +12,15 @@ repos:
       - id: check-added-large-files
       - id: detect-private-key
 
+  - repo: local
+    hooks:
+      - id: sync-meta
+        name: project.toml copies are in sync (fix with uv run task sync)
+        entry: python scripts/sync_meta.py --check
+        language: python
+        pass_filenames: false
+        always_run: true
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.17.1
     hooks:
