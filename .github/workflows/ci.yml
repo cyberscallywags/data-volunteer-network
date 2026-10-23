@@ -19,6 +19,14 @@ permissions:
   contents: read
 
 jobs:
+  branch-name:   # feature/, bug/, task/, docs/ or refactor/ (scripts/check_branch_name.sh)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: scripts/check_branch_name.sh "$BRANCH"
+        env:
+          BRANCH: ${{ github.head_ref || github.ref_name }}
+
   quality:
     runs-on: ubuntu-latest
     steps:
@@ -27,6 +35,8 @@ jobs:
         with: { enable-cache: true }
       - run: uv sync --locked
       - run: uv run task hooks
+        env:
+          SKIP: no-commit-to-branch   # CI also runs on main, via release.yml
 
   unit:
     runs-on: ubuntu-latest
@@ -62,7 +72,7 @@ jobs:
       - run: uv run task docs
 
   integration:
-    needs: [quality, unit, mobile, docs]
+    needs: [branch-name, quality, unit, mobile, docs]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -84,7 +94,7 @@ jobs:
         run: uv run task down
 
   ci-passed:   # single required status check for branch protection
-    needs: [quality, unit, mobile, docs, integration]
+    needs: [branch-name, quality, unit, mobile, docs, integration]
     runs-on: ubuntu-latest
     steps:
       - run: echo "All CI stages passed"
