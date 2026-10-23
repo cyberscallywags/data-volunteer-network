@@ -5,7 +5,7 @@ Every layer is tested, from pure functions to a real phone browser against the f
 | Layer | Where | Needs | Run with |
 |---|---|---|---|
 | Unit (Python) | `tests/unit` | nothing; a `FakeRepo` replaces Neo4j | `task test` |
-| Unit (mobile) | `src/sgaffald/mobile/**/*.spec.ts` | Docker | `task test_mobile` |
+| Unit (mobile) | `mobile/**/*.spec.ts` | Docker | `task test_mobile` |
 | Docs (generator, navigation) | `tests/unit/test_docs.py` | nothing | `task test` |
 | Docs (build) | `docs/` | nothing | `task docs` (strict; also runs in CI and the docs image) |
 | Integration | `tests/integration` | the running stack | `task test_int` |

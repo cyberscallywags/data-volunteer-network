@@ -14,6 +14,6 @@ tests
 !docs/content/**/*.md
 docs/_build
 docs/.cache
-src/sgaffald/mobile/node_modules
-src/sgaffald/mobile/www
-src/sgaffald/mobile/.angular
+mobile/node_modules
+mobile/www
+mobile/.angular

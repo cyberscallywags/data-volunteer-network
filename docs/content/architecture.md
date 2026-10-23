@@ -40,12 +40,13 @@ flowchart LR
 ## Repository layout
 
 ```text
+project.toml    project identity (name, organisation, repository, app id); see Make it yours
 src/sgaffald/
   api/          FastAPI service (GET /health, /site, /items; POST /items, /ask)
   ui/           FastUI web frontend
   admin/        Streamlit admin portal
-  mobile/       Ionic + Angular app (its own Docker image)
   content/      site.json, the site manifest, and its loader
+  meta.py       reads project.toml for the services and docs
   models.py     the shared Pydantic contract
   config.py     Settings, from environment variables
   db.py         Neo4j repository
@@ -55,6 +56,8 @@ docs/
   content/      the Markdown pages, shared by both docs sites
   sphinx/       Sphinx + Furo configuration (the manual)
   zensical.toml Zensical configuration (the portal)
+mobile/         Ionic + Angular app (its own Docker image)
+scripts/        sync_meta.py: copies project.toml and site.json where they cannot be read
 docker/         Dockerfiles, nginx configs, entrypoint
 tests/          unit, integration, e2e (Playwright), load (Locust)
 ```

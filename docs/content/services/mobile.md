@@ -1,6 +1,6 @@
 # Mobile app
 
-`src/sgaffald/mobile`: Ionic 9 + Angular 22 with standalone components, packaged with
+`mobile/`: Ionic 9 + Angular 22 with standalone components, packaged with
 Capacitor 8. It talks to the API only, through `ApiService`
 (`src/app/core/api.service.ts`), whose types mirror the [data models](../reference/models.md).
 
@@ -41,8 +41,10 @@ identity provider and send its token from `ApiService`.
 - **Container**: `docker/mobile.Dockerfile` runs `npm run lint` and the Vitest unit tests,
   then builds. A failing test fails the image build, `task up` and the release. nginx serves
   the result on :8100 and proxies `/api/*` to the API, so the web build needs no CORS.
-- **Local dev** (needs Node 24): `cd src/sgaffald/mobile && npm ci && npm start`;
-  `proxy.conf.json` forwards `/api` to the API on :8000.
+- **Local dev** (needs Node 24): `cd mobile && npm ci && npm start`;
+  `proxy.conf.json` forwards `/api` to the API on :8000. This is the only reason to install
+  `node_modules` (about 400 MB) on the host: `task test_mobile` and `task up` lint, test and
+  build inside Docker. `task clean` removes it again.
 - **Native builds**: `npx cap add ios|android`, set `apiUrl` in
   `src/environments/environment.prod.ts` to the public API URL, and add the app's origin
   (e.g. `capacitor://localhost`) to `CORS_ORIGINS`.

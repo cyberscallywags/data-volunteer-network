@@ -6,11 +6,11 @@ ARG NODE_VERSION=24
 
 FROM node:${NODE_VERSION}-alpine AS deps
 WORKDIR /app
-COPY src/sgaffald/mobile/package.json src/sgaffald/mobile/package-lock.json ./
+COPY mobile/package.json mobile/package-lock.json ./
 RUN --mount=type=cache,target=/root/.npm npm ci --no-audit --no-fund
 
 FROM deps AS test
-COPY src/sgaffald/mobile ./
+COPY mobile ./
 ENV CI=true NG_CLI_ANALYTICS=false
 RUN npm run lint && npm run test:ci
 
