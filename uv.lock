@@ -2174,26 +2174,18 @@ ui = [
 ]
 
 [package.dev-dependencies]
+admin = [
+    { name = "sgaffald", extra = ["admin"] },
+]
 dev = [
-    { name = "furo" },
-    { name = "locust" },
-    { name = "mkdocstrings-python" },
-    { name = "myst-parser" },
     { name = "pre-commit" },
     { name = "pytest" },
     { name = "pytest-asyncio" },
     { name = "pytest-cov" },
-    { name = "pytest-playwright" },
     { name = "ruff" },
-    { name = "sgaffald", extra = ["admin", "api", "ui"] },
-    { name = "sphinx" },
-    { name = "sphinx-autobuild" },
-    { name = "sphinx-copybutton" },
-    { name = "sphinx-design" },
-    { name = "sphinxcontrib-mermaid" },
+    { name = "sgaffald", extra = ["api", "ui"] },
     { name = "taskipy" },
     { name = "watchfiles" },
-    { name = "zensical" },
 ]
 docs = [
     { name = "furo" },
@@ -2207,6 +2199,12 @@ docs = [
     { name = "sphinxcontrib-mermaid" },
     { name = "taskipy" },
     { name = "zensical" },
+]
+e2e = [
+    { name = "pytest-playwright" },
+]
+load = [
+    { name = "locust" },
 ]
 
 [package.metadata]
@@ -2227,27 +2225,16 @@ requires-dist = [
 provides-extras = ["api", "ui", "admin"]
 
 [package.metadata.requires-dev]
+admin = [{ name = "sgaffald", extras = ["admin"] }]
 dev = [
-    { name = "furo", specifier = ">=2025.12.19" },
-    { name = "locust", specifier = ">=2.42" },
-    { name = "mkdocstrings-python", specifier = ">=2.0.10" },
-    { name = "myst-parser", specifier = ">=5.1" },
     { name = "pre-commit", specifier = ">=4.3" },
     { name = "pytest", specifier = ">=8.4" },
     { name = "pytest-asyncio", specifier = ">=1.2" },
     { name = "pytest-cov", specifier = ">=7.0" },
-    { name = "pytest-playwright", specifier = ">=0.10.0" },
     { name = "ruff", specifier = ">=0.14" },
     { name = "sgaffald", extras = ["api", "ui"] },
-    { name = "sgaffald", extras = ["api", "ui", "admin"] },
-    { name = "sphinx", specifier = ">=9.2" },
-    { name = "sphinx-autobuild", specifier = ">=2025.8.25" },
-    { name = "sphinx-copybutton", specifier = ">=0.5.2" },
-    { name = "sphinx-design", specifier = ">=0.7" },
-    { name = "sphinxcontrib-mermaid", specifier = ">=2.1" },
     { name = "taskipy", specifier = ">=1.14" },
     { name = "watchfiles", specifier = ">=1.1" },
-    { name = "zensical", specifier = ">=0.0.71" },
 ]
 docs = [
     { name = "furo", specifier = ">=2025.12.19" },
@@ -2262,6 +2249,8 @@ docs = [
     { name = "taskipy", specifier = ">=1.14" },
     { name = "zensical", specifier = ">=0.0.71" },
 ]
+e2e = [{ name = "pytest-playwright", specifier = ">=0.10.0" }]
+load = [{ name = "locust", specifier = ">=2.42" }]
 
 [[package]]
 name = "simple-websocket"

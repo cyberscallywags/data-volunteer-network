@@ -22,19 +22,21 @@ ui = [
 admin = ["streamlit>=1.50"]
 
 [dependency-groups]
+# Day-to-day work (lint, unit tests, docs) needs only `dev` + `docs`, the default groups.
+# The heavier tools install on demand: `uv sync --group e2e`, or `--all-groups` (task verify).
 dev = [
-    "sgaffald[api,ui,admin]",
+    "sgaffald[api,ui]",
     "pytest>=8.4",
     "pytest-asyncio>=1.2",
     "pytest-cov>=7.0",
-    "locust>=2.42",
     "ruff>=0.14",
     "pre-commit>=4.3",
     "taskipy>=1.14",
-    "pytest-playwright>=0.10.0",
     "watchfiles>=1.1",
-    {include-group = "docs"},
 ]
+e2e = ["pytest-playwright>=0.10.0"]  # browser tests (task test_e2e)
+load = ["locust>=2.42"]  # load tests (task load)
+admin = ["sgaffald[admin]"]  # Streamlit, pyarrow and pandas, for running the admin portal locally
 # Documentation: one Markdown source in docs/content, built twice: Sphinx + Furo (reference
 # manual) and Zensical (portal). Kept separate so the docs image installs only these.
 docs = [
@@ -50,6 +52,9 @@ docs = [
     "mkdocstrings-python>=2.0.10",
     "taskipy>=1.14",  # the docs image runs `task docs`, the same build as local and CI
 ]
+
+[tool.uv]
+default-groups = ["dev", "docs"]
 
 [build-system]
 requires = ["hatchling"]
@@ -71,13 +76,14 @@ compose_prod = "docker compose --env-file .env.production -f docker-compose.yml 
 docs_build = "python -m sgaffald.docgen && zensical build --strict --clean -f docs/zensical.toml && sphinx-build -W --keep-going -q -b html -c docs/sphinx docs/content docs/_build/site/manual"
 
 [tool.taskipy.tasks]
+clean = { cmd = "rm -rf .venv .pytest_cache .ruff_cache .coverage coverage.xml htmlcov docs/_build docs/.cache mobile/node_modules mobile/.angular mobile/www && find . -name __pycache__ -type d -prune -exec rm -rf {} +", help = "Delete every regenerable directory (then uv sync to rebuild .venv)" }
 lint = { cmd = "ruff check . && ruff format --check .", help = "Ruff lint + format check" }
 format = { cmd = "ruff format . && ruff check --fix .", help = "Auto-format and fix" }
 hooks = { cmd = "pre-commit run --all-files", help = "Run every pre-commit hook" }
 test = { cmd = "pytest -m 'not integration and not e2e'", help = "Unit tests (no services needed)" }
 watch = { cmd = "watchfiles --filter python \"pytest -m 'not integration and not e2e' --no-cov -q\" src tests", help = "Re-run unit tests whenever a .py file in src/ or tests/ changes" }
 test_int ={ cmd = "pytest -m integration --no-cov", help = "Integration tests against the running stack" }
-test_e2e = { cmd = "pytest -m e2e --no-cov", help = "Playwright browser tests of UI, admin + mobile (needs task up)" }
+test_e2e = { cmd = "pytest -m e2e --no-cov", help = "Playwright browser tests of UI, admin + mobile (needs task up and uv sync --group e2e)" }
 docs = { cmd = "{docs_build}", help = "Generate the reference pages and build both docs sites into docs/_build/site" }
 docs_serve = { cmd = "{docs_build} && python -m http.server 8200 -d docs/_build/site", help = "Build, then serve the portal (/) and manual (/manual/) on http://localhost:8200" }
 docs_live = { cmd = "python -m sgaffald.docgen && zensical serve -f docs/zensical.toml -a localhost:8201", help = "Live-reload the Zensical portal on :8201 while writing" }
@@ -86,9 +92,9 @@ test_mobile = { cmd = "docker build -f docker/mobile.Dockerfile --target test ."
 up = { cmd = "{compose_test} up -d --build --wait", help = "Build + start test stack, wait for healthy" }
 down = { cmd = "{compose_test} down -v", help = "Stop test stack and drop volumes" }
 logs = { cmd = "{compose_test} logs -f", help = "Tail test stack logs" }
-load = { cmd = "locust -f tests/load/locustfile.py --headless -u 10 -r 5 -t 20s --host http://localhost:8000", help = "20s Locust smoke against the API" }
-load_ui = { cmd = "locust -f tests/load/locustfile.py --host http://localhost:8000", help = "Locust web UI on :8089" }
-verify = { cmd = "task lint && task test && task test_mobile && task up && task test_int && task test_e2e && task load; status=$?; task down; exit $status", help = "Full local gate: lint, unit, stack, integration, browser, load" }
+load = { cmd = "locust -f tests/load/locustfile.py --headless -u 10 -r 5 -t 20s --host http://localhost:8000", help = "20s Locust smoke against the API (needs uv sync --group load)" }
+load_ui = { cmd = "locust -f tests/load/locustfile.py --host http://localhost:8000", help = "Locust web UI on :8089 (needs uv sync --group load)" }
+verify = { cmd = "uv sync --all-groups && task lint && task test && task test_mobile && task up && task test_int && task test_e2e && task load; status=$?; task down; exit $status", help = "Full local gate: lint, unit, stack, integration, browser, load" }
 prod_check = { cmd = "{compose_prod} config --quiet && echo 'production config OK'", help = "Validate production compose + .env.production" }
 prod_up = { cmd = "{compose_prod} up -d --wait", help = "Start using released images + production variables" }
 prod_down = { cmd = "{compose_prod} down", help = "Stop production stack (keeps data)" }

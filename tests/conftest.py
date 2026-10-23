@@ -1,6 +1,12 @@
+from importlib.util import find_spec
+
 import pytest
 
 from sgaffald.models import Item, ItemIn
+
+# The browser tests import Playwright, which only the `e2e` dependency group installs.
+if find_spec("playwright") is None:
+    collect_ignore = ["e2e"]
 
 
 class FakeRepo:
