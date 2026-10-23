@@ -2,6 +2,7 @@
 
 import importlib.util
 import json
+import re
 import shutil
 import tomllib
 from pathlib import Path
@@ -32,12 +33,10 @@ def fork(tmp_path) -> Path:
 def test_renaming_the_project_updates_every_copy(fork):
     project = fork / "project.toml"
     text = project.read_text()
-    for old, new in [
-        ('"Sgaffald"', '"Castell"'),
-        ('"sgaffald"', '"castell"'),
-        ('"OWNER"', '"Criw"'),
-        ('"REPO"', '"Castell"'),
-    ]:
+    # [repository] first, whatever it holds, so the slug swap below cannot touch it
+    text = re.sub(r'^owner = ".*"', 'owner = "Criw"', text, flags=re.M)
+    text = re.sub(r'(\[repository\][^\[]*?^name = )"[^"]*"', r'\1"Castell"', text, flags=re.M)
+    for old, new in [('"Sgaffald"', '"Castell"'), ('"sgaffald"', '"castell"')]:
         text = text.replace(old, new)
     project.write_text(text)
 

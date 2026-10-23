@@ -11,8 +11,9 @@ GitHub Actions in `.github/workflows`:
 | `new-issue.yml` | manual (Actions tab) | creates a feature, bug or task issue, its body built from the matching `.github/ISSUE_TEMPLATE/` form, and adds it to the Project |
 
 Branches must be named `feature/`, `bug/`, `task/`, `docs/` or `refactor/` followed by a
-lower-case name (`a-z`, `0-9`, `.`, `_`, `-`), e.g. `feature/add-login`. The `branch-name` job
-fails anything else, which blocks `ci-passed`.
+lower-case name (`a-z`, `0-9`, `.`, `_`, `-`), e.g. `feature/add-login`. The rule lives in
+`scripts/check_branch_name.sh`: a pre-push hook refuses the push locally, and the `branch-name`
+job fails anything that gets through (it blocks `ci-passed`).
 
 Issue forms for people live in `.github/ISSUE_TEMPLATE/`. Images are published for `api`,
 `ui`, `admin`, `mobile` and `docs`.
