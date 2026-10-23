@@ -19,6 +19,19 @@ permissions:
   contents: read
 
 jobs:
+  branch-name:   # feature/, bug/, task/, docs/ or refactor/ + lower-case slug
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          BRANCH: ${{ github.head_ref || github.ref_name }}
+        run: |
+          if [[ "$BRANCH" == main || "$BRANCH" =~ ^(feature|bug|task|docs|refactor)/[a-z0-9._-]+$ ]]; then
+            echo "Branch name OK: $BRANCH"
+          else
+            echo "::error::Branch '$BRANCH' must be feature/, bug/, task/, docs/ or refactor/ followed by a lower-case name, e.g. feature/add-login"
+            exit 1
+          fi
+
   quality:
     runs-on: ubuntu-latest
     steps:
@@ -62,7 +75,7 @@ jobs:
       - run: uv run task docs
 
   integration:
-    needs: [quality, unit, mobile, docs]
+    needs: [branch-name, quality, unit, mobile, docs]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -84,7 +97,7 @@ jobs:
         run: uv run task down
 
   ci-passed:   # single required status check for branch protection
-    needs: [quality, unit, mobile, docs, integration]
+    needs: [branch-name, quality, unit, mobile, docs, integration]
     runs-on: ubuntu-latest
     steps:
       - run: echo "All CI stages passed"

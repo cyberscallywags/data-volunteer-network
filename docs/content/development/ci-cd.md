@@ -4,11 +4,15 @@ GitHub Actions in `.github/workflows`:
 
 | Workflow | Trigger | Does |
 |---|---|---|
-| `ci.yml` | push to any branch, PR into `main` | pre-commit + unit + mobile → compose build (including the docs image) + integration + Playwright + Locust → `ci-passed` |
+| `ci.yml` | push to any branch, PR into `main` | branch-name check + pre-commit + unit + mobile → compose build (including the docs image) + integration + Playwright + Locust → `ci-passed` |
 | `release.yml` | merge to `main` | re-runs CI, then pushes `ghcr.io/<owner>/<repo>/<service>:main` and `:sha-<commit>` |
 | `release.yml` | tag `vX.Y.Z` | promotes the already-tested `:sha-<commit>` images to `:vX.Y.Z` and `:latest`, with no rebuild |
 | `issue-to-project.yml` | issue opened | adds it to the GitHub Project |
 | `new-issue.yml` | manual (Actions tab) | creates a feature, bug or task issue, its body built from the matching `.github/ISSUE_TEMPLATE/` form, and adds it to the Project |
+
+Branches must be named `feature/`, `bug/`, `task/`, `docs/` or `refactor/` followed by a
+lower-case name (`a-z`, `0-9`, `.`, `_`, `-`), e.g. `feature/add-login`. The `branch-name` job
+fails anything else, which blocks `ci-passed`.
 
 Issue forms for people live in `.github/ISSUE_TEMPLATE/`. Images are published for `api`,
 `ui`, `admin`, `mobile` and `docs`.

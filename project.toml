@@ -16,8 +16,8 @@ motto = "Play • Learn • Share • Grow"
 [repository]
 # GitHub owner and repository: README badges and the release image prefix,
 # ghcr.io/<owner>/<name> (lower-cased, like the release workflow).
-owner = "OWNER"
-name = "REPO"
+owner = "cyberscallywags"
+name = "sgaffald"
 
 [mobile]
 app_id = "com.cyberscallywags.sgaffald"  # Capacitor appId, reverse-DNS
