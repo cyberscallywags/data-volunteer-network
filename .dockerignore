@@ -1,0 +1,19 @@
+.git
+.github
+.venv
+**/__pycache__
+.pytest_cache
+.ruff_cache
+tests
+.env*
+# Throwaway/example values only; the docs image documents them (sgaffald.docgen)
+!.env.test
+!.env.production.example
+*.md
+!README.md
+!docs/content/**/*.md
+docs/_build
+docs/.cache
+src/sgaffald/mobile/node_modules
+src/sgaffald/mobile/www
+src/sgaffald/mobile/.angular

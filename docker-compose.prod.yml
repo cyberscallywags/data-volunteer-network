@@ -1,0 +1,31 @@
+# Production overlay: released images from GHCR, no local builds, no exposed database.
+# uv run task prod_up   (= docker compose --env-file .env.production -f docker-compose.yml -f docker-compose.prod.yml up)
+
+x-release: &release
+  build: !reset null
+  pull_policy: always
+  restart: unless-stopped
+
+services:
+  neo4j:
+    environment:
+      # Production requires a commercial Neo4j Enterprise licence: set NEO4J_LICENSE=yes
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: ${NEO4J_LICENSE:?set NEO4J_LICENSE=yes in .env.production}
+    ports: !reset []
+    restart: unless-stopped
+
+  api:
+    <<: *release
+    ports: !reset []
+
+  ui:
+    <<: *release
+
+  admin:
+    <<: *release
+
+  mobile:
+    <<: *release
+
+  docs:
+    <<: *release

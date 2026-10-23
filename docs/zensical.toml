@@ -1,0 +1,114 @@
+# The docs portal (Zensical). Build: uv run task docs   Live: uv run task docs_live
+# Pages live in docs/content, shared with the Sphinx manual (docs/sphinx). Keep `nav` in step
+# with the toctrees in content/manual.md; tests/unit/test_docs.py checks both.
+
+[project]
+site_name = "Sgaffald"
+site_description = "Cyber Scallywags base template: FastAPI, FastUI, Streamlit, Ionic and Neo4j"
+site_author = "Cyber Scallywags"
+copyright = "© 2026 Cyber Scallywags · Play • Learn • Share • Grow"
+docs_dir = "content"
+site_dir = "_build/site"
+# Sphinx-only pages; the manual is built into _build/site/manual after the portal.
+exclude_docs = """
+manual.md
+reference/python-api-sphinx.md
+"""
+extra_css = ["assets/stylesheets/scallywag.css", "assets/stylesheets/zensical.css"]
+
+nav = [
+  { "Home" = "index.md" },
+  { "Guide" = [
+    "getting-started.md",
+    "architecture.md",
+    "site-manifest.md",
+    "guides/make-it-yours.md",
+  ] },
+  { "Services" = [
+    "services/api.md",
+    "services/web-ui.md",
+    "services/admin.md",
+    "services/mobile.md",
+    "services/docs.md",
+  ] },
+  { "Development" = [
+    "development/testing.md",
+    "development/environments.md",
+    "development/ci-cd.md",
+  ] },
+  { "Reference" = [
+    "reference/http-api.md",
+    "reference/models.md",
+    "reference/configuration.md",
+    "reference/tasks.md",
+    "reference/site-sample.md",
+    "reference/python-api.md",
+    { "Manual (Sphinx)" = "/manual/" },
+  ] },
+  { "Community" = [
+    "about.md",
+  ] },
+]
+
+[project.theme]
+language = "en"
+logo = "assets/images/csw-mark-64.png"
+favicon = "assets/images/favicon.png"
+features = [
+  "content.code.copy",
+  "content.tabs.link",
+  "navigation.footer",
+  "navigation.indexes",
+  "navigation.instant",
+  "navigation.path",
+  "navigation.sections",
+  "navigation.tabs",
+  "navigation.top",
+  "navigation.tracking",
+  "search.highlight",
+]
+
+[project.theme.font]
+text = false
+code = false
+
+# Dark first, like cyberscallywags.com; readers can switch.
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to light mode"
+
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to dark mode"
+
+[[project.extra.social]]
+icon = "lucide/globe"
+link = "https://cyberscallywags.com"
+name = "Cyber Scallywags"
+
+[project.markdown_extensions]
+admonition = {}
+attr_list = {}
+def_list = {}
+md_in_html = {}
+tables = {}
+toc.permalink = true
+pymdownx.details = {}
+pymdownx.highlight.anchor_linenums = true
+pymdownx.highlight.pygments_lang_class = true
+pymdownx.inlinehilite = {}
+pymdownx.superfences.custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
+]
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = ["../src"]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+docstring_style = "google"
+members_order = "source"
+show_root_heading = true
+show_source = false
+heading_level = 2

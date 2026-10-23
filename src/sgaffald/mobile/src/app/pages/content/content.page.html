@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ page()?.title ?? brand().name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (page(); as page) {
+    <header class="hero" [attr.data-testid]="'page-' + page.slug">
+      @if (page.slug === 'welcome') {
+        <h1>{{ brand().name }}</h1>
+        @if (brand().tagline) {
+          <p class="tagline">{{ brand().tagline }}</p>
+        }
+      } @else {
+        <h1>{{ page.title }}</h1>
+      }
+      @if (page.summary) {
+        <p>{{ page.summary }}</p>
+      }
+    </header>
+
+    <app-sections [sections]="page.sections"></app-sections>
+
+    @if (page.slug === 'about' && brand().collective_url; as url) {
+      <div class="ion-padding">
+        <ion-button expand="block" color="tertiary" [href]="url" target="_blank" rel="noopener">
+          Visit {{ brand().collective }}
+        </ion-button>
+      </div>
+    }
+  } @else {
+    <ion-text color="medium">
+      <p class="ion-padding">This page is not in the site manifest.</p>
+    </ion-text>
+  }
+</ion-content>

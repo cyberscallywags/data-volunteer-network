@@ -1,0 +1,80 @@
+import httpx
+import pytest
+
+from sgaffald.api.main import app as api_app
+from sgaffald.ui import main as ui
+
+
+@pytest.fixture
+async def ui_client(fake_repo, monkeypatch):
+    """UI wired to the real API app in-process (API backed by the fake repo)."""
+    api_app.state.repo = fake_repo
+    monkeypatch.setattr(
+        ui,
+        "api",
+        lambda: httpx.AsyncClient(
+            transport=httpx.ASGITransport(app=api_app), base_url="http://api"
+        ),
+    )
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=ui.app), base_url="http://ui"
+    ) as c:
+        yield c
+
+
+async def test_landing_serves_fastui_shell(ui_client):
+    r = await ui_client.get("/")
+    assert r.status_code == 200
+    assert "<html" in r.text.lower()
+
+
+async def test_landing_is_themed_from_the_site_manifest(ui_client):
+    r = await ui_client.get("/")
+    assert "--brand-primary: #1b4965" in r.text
+
+
+async def test_welcome_renders_the_manifest(ui_client):
+    r = await ui_client.get("/api/")
+    assert r.status_code == 200
+    assert "Planning the application" in r.text
+    # the navbar mirrors the mobile side menu: sidebar pages plus About
+    assert "/p/roadmap" in r.text and "/about" in r.text
+
+
+async def test_about_promotes_the_collective(ui_client):
+    r = await ui_client.get("/api/about")
+    assert r.status_code == 200
+    assert "Cyber Scallywags" in r.text
+
+
+async def test_content_page_by_slug(ui_client):
+    assert "Data flow" in (await ui_client.get("/api/p/architecture")).text
+    assert (await ui_client.get("/api/p/nope")).status_code == 404
+
+
+async def test_items_page_lists_items_from_api(ui_client, fake_repo):
+    await api_app.state.repo.create(ui.ItemIn(name="Cwtch"))
+    r = await ui_client.get("/api/items")
+    assert r.status_code == 200
+    assert "Cwtch" in r.text
+
+
+async def test_form_submit_creates_item(ui_client, fake_repo):
+    r = await ui_client.post("/api/items", data={"name": "Hiraeth"})
+    assert r.status_code == 200
+    assert [i.name for i in fake_repo.items] == ["Hiraeth"]
+    # GoToEvent must change the URL, or the browser keeps showing the stale table
+    assert r.json()[0]["event"]["query"] == {"added": fake_repo.items[0].id}
+
+
+async def test_navbar_links_to_the_docs_portal(ui_client):
+    r = await ui_client.get("/api/")
+    assert '"url":"http://localhost:8200"' in r.text.replace(" ", "")
+    assert '"target":"_blank"' in r.text.replace(" ", "")
+
+
+async def test_navbar_hides_docs_without_a_docs_url(ui_client, monkeypatch):
+    from sgaffald.config import get_settings
+
+    monkeypatch.setattr(get_settings(), "docs_url", None)
+    assert "localhost:8200" not in (await ui_client.get("/api/")).text

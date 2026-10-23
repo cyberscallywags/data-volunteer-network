@@ -1,0 +1,73 @@
+<ion-app>
+  <ion-split-pane contentId="main" when="lg">
+    <ion-menu contentId="main" type="overlay">
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>{{ site().brand.name }}</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-list lines="none" data-testid="sign-on">
+          <ion-menu-toggle [autoHide]="false">
+            @if (session.member(); as member) {
+              <ion-item>
+                <ion-icon slot="start" color="primary" [name]="iconName('person-circle-outline')"></ion-icon>
+                <ion-label>
+                  <h3>{{ member.name }}</h3>
+                  <p>{{ member.email }}</p>
+                </ion-label>
+                <ion-button slot="end" fill="clear" size="small" (click)="session.signOut()">
+                  Sign out
+                </ion-button>
+              </ion-item>
+            } @else {
+              <ion-item routerLink="/sign-in" routerDirection="root" [button]="true" [detail]="false">
+                <ion-icon slot="start" color="primary" [name]="iconName('log-in-outline')"></ion-icon>
+                <ion-label>Sign in</ion-label>
+              </ion-item>
+            }
+          </ion-menu-toggle>
+        </ion-list>
+
+        <ion-list lines="none" data-testid="menu">
+          <ion-list-header>Project</ion-list-header>
+          @for (entry of nav(); track entry.path) {
+            <ion-menu-toggle [autoHide]="false">
+              <ion-item
+                [routerLink]="entry.path"
+                routerLinkActive="selected"
+                routerDirection="root"
+                [button]="true"
+                [detail]="false"
+              >
+                <ion-icon slot="start" [name]="iconName(entry.icon)"></ion-icon>
+                <ion-label>{{ entry.title }}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          }
+        </ion-list>
+      </ion-content>
+
+      <ion-footer>
+        <ion-list lines="none">
+          <ion-menu-toggle [autoHide]="false">
+            <ion-item routerLink="/about" routerLinkActive="selected" routerDirection="root" [button]="true" [detail]="false">
+              <ion-icon slot="start" [name]="iconName(site().about.icon)"></ion-icon>
+              <ion-label>{{ site().about.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          @if (site().docs_url; as docsUrl) {
+            <ion-item [href]="docsUrl" target="_blank" rel="noopener" [detail]="false" data-testid="docs-link">
+              <ion-icon slot="start" [name]="iconName('book-outline')"></ion-icon>
+              <ion-label>Documentation</ion-label>
+            </ion-item>
+          }
+        </ion-list>
+        <ion-note class="ion-padding-horizontal">A {{ site().brand.collective }} project</ion-note>
+      </ion-footer>
+    </ion-menu>
+
+    <ion-router-outlet id="main"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

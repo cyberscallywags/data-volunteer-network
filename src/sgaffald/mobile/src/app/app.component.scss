@@ -1,0 +1,15 @@
+ion-menu ion-item.selected {
+  --background: rgba(var(--ion-color-primary-rgb), 0.12);
+  --color: var(--ion-color-primary);
+  font-weight: 600;
+
+  ion-icon {
+    color: var(--ion-color-primary);
+  }
+}
+
+ion-menu ion-footer ion-note {
+  display: block;
+  padding-bottom: 12px;
+  font-size: 0.8em;
+}

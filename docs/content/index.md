@@ -1,0 +1,90 @@
+---
+title: Home
+hide:
+  - navigation
+  - toc
+---
+
+<div class="csw-hero" markdown>
+
+<div class="csw-hero__text" markdown>
+
+<p class="csw-kicker">Cyber Scallywags · Docs portal</p>
+
+# Sgaffald
+
+Scaffolding for the next project: an API, a web UI, an admin portal, a mobile app and a
+graph, tested and deployable from the first commit.
+
+[Get started](getting-started.md){ .md-button .md-button--primary }
+[Reference manual](/manual/){ .md-button }
+
+</div>
+
+<div class="csw-hero__crest">
+<picture>
+  <source type="image/webp" srcset="assets/images/csw-crest-256.webp 256w, assets/images/csw-crest-512.webp 512w" sizes="(max-width: 600px) 60vw, 18rem">
+  <img src="assets/images/csw-crest-512.png" width="512" height="738" alt="The Cyber Scallywags crest: a wolf in a flat cap above the words Play, Learn, Share, Grow">
+</picture>
+</div>
+
+</div>
+
+<div class="grid cards" markdown>
+
+-   **Get started**
+
+    ---
+
+    Install the tools, start the stack and find every service.
+
+    [Getting started →](getting-started.md)
+
+-   **Architecture**
+
+    ---
+
+    How the API, UI, admin, mobile app and Neo4j fit together.
+
+    [Architecture →](architecture.md)
+
+-   **Site manifest**
+
+    ---
+
+    One JSON file drives the brand, theme and pages on web and mobile.
+
+    [Site manifest →](site-manifest.md)
+
+-   **HTTP API**
+
+    ---
+
+    Every endpoint with parameters, bodies and `curl` examples, generated from the code.
+
+    [HTTP API →](reference/http-api.md)
+
+-   **Configuration**
+
+    ---
+
+    Every setting and environment variable, test and production.
+
+    [Configuration →](reference/configuration.md)
+
+-   **About Cyber Scallywags**
+
+    ---
+
+    Play • Learn • Share • Grow. The collective behind the template.
+
+    [About →](about.md)
+
+</div>
+
+## Two ways to read
+
+This **portal**, built with Zensical, is the quickest way around. The
+[reference manual](/manual/), built with Sphinx and Furo, renders the same pages plus the
+Python API from docstrings. Both come from `docs/content`; see
+[The docs site](services/docs.md).

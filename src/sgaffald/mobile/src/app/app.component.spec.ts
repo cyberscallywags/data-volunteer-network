@@ -1,0 +1,73 @@
+import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { of } from 'rxjs';
+
+import { AppComponent } from './app.component';
+import { ApiService } from './core/api.service';
+import { SessionService } from './core/session.service';
+import { SITE } from './testing/site.fixture';
+
+function setup() {
+  TestBed.configureTestingModule({
+    imports: [AppComponent],
+    providers: [provideRouter([]), { provide: ApiService, useValue: { site: () => of(SITE) } }],
+  });
+  const fixture = TestBed.createComponent(AppComponent);
+  fixture.detectChanges();
+  return fixture;
+}
+
+describe('AppComponent', () => {
+  beforeEach(() => localStorage.clear());
+
+  it('builds the side menu from the manifest, then the code-backed features', () => {
+    const fixture = setup();
+    expect(fixture.componentInstance.nav().map((e) => e.path)).toEqual([
+      '/welcome',
+      '/p/roadmap',
+      '/items',
+    ]);
+    const menu: HTMLElement = fixture.nativeElement.querySelector('[data-testid="menu"]');
+    expect(menu.textContent).toContain('Roadmap');
+  });
+
+  it('always links to About in the menu footer', () => {
+    // innerHTML, not textContent: Stencil patches textContent on scoped Ionic elements.
+    const el: HTMLElement = setup().nativeElement;
+    const about = el.querySelector('ion-footer ion-item');
+    expect(about?.getAttribute('href')).toBe('/about');
+    expect(about?.innerHTML).toContain('About Cyber Scallywags');
+    expect(el.querySelector('ion-footer ion-note')?.innerHTML).toContain('A Cyber Scallywags project');
+  });
+
+  it('links to the docs portal when the API provides a docs URL', () => {
+    const el: HTMLElement = setup().nativeElement;
+    const docs = el.querySelector('[data-testid="docs-link"]') as HTMLIonItemElement;
+    expect(docs.href).toBe('http://localhost:8200'); // [href] binds the property
+    expect(docs.target).toBe('_blank');
+    expect(docs?.innerHTML).toContain('Documentation');
+  });
+
+  it('hides the docs link when there is no docs URL', () => {
+    TestBed.configureTestingModule({
+      imports: [AppComponent],
+      providers: [
+        provideRouter([]),
+        { provide: ApiService, useValue: { site: () => of({ ...SITE, docs_url: null }) } },
+      ],
+    });
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('[data-testid="docs-link"]')).toBeNull();
+  });
+
+  it('offers sign-in, then shows the signed-in member', () => {
+    const fixture = setup();
+    const signOn = () =>
+      (fixture.nativeElement.querySelector('[data-testid="sign-on"]') as HTMLElement).textContent;
+    expect(signOn()).toContain('Sign in');
+    TestBed.inject(SessionService).signIn({ name: 'Ada', email: 'ada@example.com' });
+    fixture.detectChanges();
+    expect(signOn()).toContain('Ada');
+  });
+});

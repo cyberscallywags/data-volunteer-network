@@ -1,0 +1,61 @@
+@for (section of sections(); track $index) {
+  <section [attr.data-kind]="section.kind">
+    @if (section.heading) {
+      <h2 class="ion-padding-horizontal">{{ section.heading }}</h2>
+    }
+    @if (section.body) {
+      <ion-text><p class="ion-padding-horizontal">{{ section.body }}</p></ion-text>
+    }
+    @switch (section.kind) {
+      @case ('list') {
+        <ion-list inset>
+          @for (item of section.items; track $index) {
+            <ion-item [href]="item.url ?? undefined">
+              @if (item.icon) {
+                <ion-icon slot="start" color="primary" [name]="iconName(item.icon)"></ion-icon>
+              }
+              <ion-label class="ion-text-wrap">
+                <h3>{{ item.title }}</h3>
+                @if (item.body) {
+                  <p>{{ item.body }}</p>
+                }
+              </ion-label>
+            </ion-item>
+          }
+        </ion-list>
+      }
+      @case ('steps') {
+        <ion-list inset>
+          @for (item of section.items; track $index) {
+            <ion-item>
+              <ion-badge slot="start" color="tertiary">{{ $index + 1 }}</ion-badge>
+              <ion-label class="ion-text-wrap">
+                <h3>{{ item.title }}</h3>
+                @if (item.body) {
+                  <p>{{ item.body }}</p>
+                }
+              </ion-label>
+            </ion-item>
+          }
+        </ion-list>
+      }
+      @case ('cards') {
+        <div class="cards">
+          @for (item of section.items; track $index) {
+            <ion-card [href]="item.url ?? undefined">
+              <ion-card-header>
+                @if (item.icon) {
+                  <ion-icon color="tertiary" [name]="iconName(item.icon)"></ion-icon>
+                }
+                <ion-card-title>{{ item.title }}</ion-card-title>
+              </ion-card-header>
+              @if (item.body) {
+                <ion-card-content>{{ item.body }}</ion-card-content>
+              }
+            </ion-card>
+          }
+        </div>
+      }
+    }
+  </section>
+}

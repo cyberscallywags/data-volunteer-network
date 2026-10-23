@@ -1,0 +1,98 @@
+/* Scallywag Neon for Zensical: maps the tokens in scallywag.css onto the theme. */
+
+[data-md-color-scheme="slate"] {
+  --md-hue: 215;
+  --md-default-bg-color: var(--csw-night);
+  --md-default-fg-color: #e6edf3;
+  --md-default-fg-color--light: var(--csw-slate-300);
+  --md-default-fg-color--lighter: var(--csw-slate-400);
+  --md-primary-fg-color: var(--csw-surface);
+  --md-primary-bg-color: #ffffff;
+  --md-accent-fg-color: var(--csw-magenta);
+  --md-typeset-a-color: var(--csw-blue);
+  --md-code-bg-color: var(--csw-card);
+  --md-footer-bg-color: var(--csw-surface);
+  --md-footer-bg-color--dark: var(--csw-night);
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: var(--csw-surface);
+  --md-primary-bg-color: #ffffff;
+  --md-accent-fg-color: var(--csw-magenta-ink);
+  --md-typeset-a-color: var(--csw-blue-ink);
+}
+
+/* Header + tabs: the site's dark bar with a blue-to-magenta rule underneath. */
+.md-header,
+.md-tabs {
+  background-color: var(--csw-surface);
+}
+
+.md-header {
+  border-bottom: 2px solid transparent;
+  border-image: var(--csw-gradient) 1;
+}
+
+.md-header__topic:first-child {
+  font-family: var(--csw-mono);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Headings: gradient h1, blue h2 in dark. */
+.md-typeset h1 {
+  font-weight: 800;
+  background: var(--csw-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Gradient text would paint the permalink too; the page title needs none. */
+.md-typeset h1 .headerlink {
+  display: none;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h2 {
+  color: var(--csw-blue);
+}
+
+/* Cards and tables on dark surfaces, glowing on hover like the site's cards. */
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li,
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) {
+  background: var(--csw-surface);
+  border-color: var(--csw-border);
+}
+
+.md-typeset .grid.cards > ul > li {
+  border-radius: 0.75rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.md-typeset .grid.cards > ul > li:hover {
+  border-color: var(--csw-blue);
+  box-shadow: var(--csw-glow);
+}
+
+.md-typeset .md-button {
+  border-radius: 0.5rem;
+  font-weight: 700;
+}
+
+.md-typeset .md-button--primary {
+  background: var(--csw-blue);
+  border-color: var(--csw-blue);
+  color: #000;
+}
+
+.md-typeset .md-button--primary:hover {
+  background: var(--csw-magenta);
+  border-color: var(--csw-magenta);
+  color: #fff;
+}
+
+/* The hero keeps its own h1 size and spacing. */
+.md-typeset .csw-hero h1 {
+  margin: 0.25rem 0 0.75rem;
+}

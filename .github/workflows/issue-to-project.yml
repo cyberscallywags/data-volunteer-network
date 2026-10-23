@@ -1,0 +1,21 @@
+# Any issue opened (from the forms or elsewhere) lands on the GitHub Project.
+# Repo settings: variable PROJECT_URL (e.g. https://github.com/orgs/<org>/projects/1)
+#                secret  PROJECT_TOKEN (PAT with project + repo scope)
+name: Issue to project
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+
+jobs:
+  add:
+    if: vars.PROJECT_URL != ''
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v2
+        with:
+          project-url: ${{ vars.PROJECT_URL }}
+          github-token: ${{ secrets.PROJECT_TOKEN }}

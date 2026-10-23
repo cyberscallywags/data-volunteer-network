@@ -1,0 +1,51 @@
+# Actions tab -> "New templated issue" -> Run workflow.
+# Creates an issue from .github/issue-templates/<kind>.md, labels it, and adds it to PROJECT_URL.
+name: New templated issue
+
+on:
+  workflow_dispatch:
+    inputs:
+      kind:
+        description: Template
+        type: choice
+        options: [feature, bug, task]
+        required: true
+      title:
+        description: Title
+        required: true
+      summary:
+        description: One-paragraph summary
+        required: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Create issue
+        id: issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          KIND: ${{ inputs.kind }}
+          TITLE: ${{ inputs.title }}
+          SUMMARY: ${{ inputs.summary }}
+        run: |
+          { printf '## Summary\n%s\n\n' "${SUMMARY:-_TBC_}"; cat ".github/issue-templates/$KIND.md"; } > body.md
+          gh label create "$KIND" --force >/dev/null
+          url=$(gh issue create --title "$TITLE" --body-file body.md --label "$KIND")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "Created $url" >> "$GITHUB_STEP_SUMMARY"
+      - name: Add to project
+        if: vars.PROJECT_URL != ''
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+          PROJECT_URL: ${{ vars.PROJECT_URL }}
+          ISSUE_URL: ${{ steps.issue.outputs.url }}
+        run: |
+          owner=$(echo "$PROJECT_URL" | cut -d/ -f5)
+          number=$(echo "$PROJECT_URL" | cut -d/ -f7)
+          gh project item-add "$number" --owner "$owner" --url "$ISSUE_URL"

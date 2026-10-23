@@ -1,0 +1,30 @@
+# Install once: uv run pre-commit install    Run all: uv run task hooks
+# Bump versions: uv run pre-commit autoupdate
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args: [--unsafe]  # compose files use !reset tags
+      - id: check-toml
+      - id: check-added-large-files
+      - id: detect-private-key
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.1
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.13.4
+    hooks:
+      - id: uv-lock  # keeps uv.lock in step with pyproject.toml
+
+  - repo: https://github.com/Mateusz-Grzelinski/actionlint-py  # pip-packaged, no Go needed
+    rev: v1.7.12.25
+    hooks:
+      - id: actionlint

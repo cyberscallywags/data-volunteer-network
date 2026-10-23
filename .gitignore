@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+.env
+.env.production
+locust_*.csv
+
+# Docs: build output, Zensical cache, and the pages sgaffald.docgen generates
+docs/_build/
+docs/.cache/
+docs/content/reference/http-api.md
+docs/content/reference/models.md
+docs/content/reference/configuration.md
+docs/content/reference/tasks.md
+docs/content/reference/site-sample.md
+
+# macOS
+.DS_Store
