@@ -13,7 +13,8 @@ GitHub Actions in `.github/workflows`:
 Branches must be named `feature/`, `bug/`, `task/`, `docs/` or `refactor/` followed by a
 lower-case name (`a-z`, `0-9`, `.`, `_`, `-`), e.g. `feature/add-login`. The rule lives in
 `scripts/check_branch_name.sh`: a pre-push hook refuses the push locally, and the `branch-name`
-job fails anything that gets through (it blocks `ci-passed`).
+job fails anything that gets through (it blocks `ci-passed`). Locally, the hooks also refuse
+commits and pushes to `main`: work on a branch and open a PR.
 
 Issue forms for people live in `.github/ISSUE_TEMPLATE/`. Images are published for `api`,
 `ui`, `admin`, `mobile` and `docs`.

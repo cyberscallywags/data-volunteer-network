@@ -35,6 +35,8 @@ jobs:
         with: { enable-cache: true }
       - run: uv sync --locked
       - run: uv run task hooks
+        env:
+          SKIP: no-commit-to-branch   # CI also runs on main, via release.yml
 
   unit:
     runs-on: ubuntu-latest
