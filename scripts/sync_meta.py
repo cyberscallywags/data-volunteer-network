@@ -218,7 +218,7 @@ def readme(m: dict, text: str | None) -> str:
     badges = "".join(
         f"[![{label}]({image.format(r=r)})]({link.format(r=r)})\n" for label, image, link in BADGES
     )
-    return splice(text or "", "header", f"# {m['project']['name']}\n\n{badges}", ("<!-- ", " -->"))
+    return splice(text or "", "header", f"---\n\n{badges}", ("<!-- ", " -->"))
 
 
 def pyproject(m: dict, text: str | None) -> str:

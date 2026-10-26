@@ -1,10 +1,10 @@
-<!-- Title and badges are generated from project.toml by `uv run task sync`. -->
+<!-- Badges are generated from project.toml by `uv run task sync`. -->
 <p align="center">
   <img src="docs/content/assets/images/sgaffald-hero.webp" alt="Sgaffald: scaffolding for the next project, ready to be renamed and grown" width="100%">
 </p>
 
 <!-- sync:header -->
-# Sgaffald
+---
 
 [![CI](https://img.shields.io/github/actions/workflow/status/cyberscallywags/sgaffald/ci.yml?event=pull_request&label=ci&logo=githubactions&logoColor=white)](https://github.com/cyberscallywags/sgaffald/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/actions/workflow/status/cyberscallywags/sgaffald/release.yml?label=release&logo=githubactions&logoColor=white)](https://github.com/cyberscallywags/sgaffald/actions/workflows/release.yml)
@@ -22,7 +22,8 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](.pre-commit-config.yaml)
 <!-- /sync:header -->
 
-CyberScallywags base template. The smallest stack that connects every part and is ready to
+This Cyber Scallywags base template.
+The smallest stack that connects every part and is ready to
 be renamed and grown into a real project.
 
 | Service | Tech | Local URL |
