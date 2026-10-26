@@ -22,7 +22,7 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](.pre-commit-config.yaml)
 <!-- /sync:header -->
 
-This Cyber Scallywags base template.
+<b>This Cyber Scallywags base template.</b> </br>
 The smallest stack that connects every part and is ready to
 be renamed and grown into a real project.
 
