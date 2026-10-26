@@ -173,31 +173,41 @@ def env_project(m: dict, _: str | None) -> str:
 GITHUB = "https://github.com/{r}"
 SHIELDS = "https://img.shields.io"
 ASTRAL = SHIELDS + "/endpoint?url=https://raw.githubusercontent.com/astral-sh"
-BADGES = [  # label, image, link; {r} is owner/name
-    ("CI", GITHUB + "/actions/workflows/ci.yml/badge.svg", GITHUB + "/actions/workflows/ci.yml"),
+WORKFLOW = SHIELDS + "/github/actions/workflow/status/{r}"
+GH_LOGO = "?logo=github&logoColor=white"
+BADGES = [  # label, image, link; {r} is owner/name. All shields.io, default flat style.
+    (
+        "CI",
+        WORKFLOW + "/ci.yml?event=pull_request&label=ci&logo=githubactions&logoColor=white",
+        GITHUB + "/actions/workflows/ci.yml",
+    ),
     (
         "Release",
-        GITHUB + "/actions/workflows/release.yml/badge.svg",
+        WORKFLOW + "/release.yml?label=release&logo=githubactions&logoColor=white",
         GITHUB + "/actions/workflows/release.yml",
     ),
-    ("Coverage", "https://codecov.io/gh/{r}/graph/badge.svg", "https://codecov.io/gh/{r}"),
+    (
+        "Coverage",
+        SHIELDS + "/codecov/c/github/{r}?logo=codecov&logoColor=white",
+        "https://codecov.io/gh/{r}",
+    ),
     (
         "Python",
         SHIELDS + "/badge/python-3.14-3776AB?logo=python&logoColor=white",
         ".python-version",
     ),
-    ("Top language", SHIELDS + "/github/languages/top/{r}", GITHUB),
-    ("Languages", SHIELDS + "/github/languages/count/{r}", GITHUB),
-    ("Open issues", SHIELDS + "/github/issues/{r}", GITHUB + "/issues"),
-    ("Open PRs", SHIELDS + "/github/issues-pr/{r}", GITHUB + "/pulls"),
-    ("Stars", SHIELDS + "/github/stars/{r}?style=flat", GITHUB + "/stargazers"),
-    ("Forks", SHIELDS + "/github/forks/{r}?style=flat", GITHUB + "/network/members"),
-    ("Last commit", SHIELDS + "/github/last-commit/{r}", GITHUB + "/commits"),
+    ("Top language", SHIELDS + "/github/languages/top/{r}" + GH_LOGO, GITHUB),
+    ("Languages", SHIELDS + "/github/languages/count/{r}" + GH_LOGO, GITHUB),
+    ("Open issues", SHIELDS + "/github/issues/{r}" + GH_LOGO, GITHUB + "/issues"),
+    ("Open PRs", SHIELDS + "/github/issues-pr/{r}" + GH_LOGO, GITHUB + "/pulls"),
+    ("Stars", SHIELDS + "/github/stars/{r}" + GH_LOGO, GITHUB + "/stargazers"),
+    ("Forks", SHIELDS + "/github/forks/{r}" + GH_LOGO, GITHUB + "/network/members"),
+    ("Last commit", SHIELDS + "/github/last-commit/{r}" + GH_LOGO, GITHUB + "/commits"),
     ("uv", ASTRAL + "/uv/main/assets/badge/v0.json", "https://github.com/astral-sh/uv"),
     ("Ruff", ASTRAL + "/ruff/main/assets/badge/v2.json", "https://github.com/astral-sh/ruff"),
     (
         "pre-commit",
-        SHIELDS + "/badge/pre--commit-enabled-brightgreen?logo=pre-commit",
+        SHIELDS + "/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white",
         ".pre-commit-config.yaml",
     ),
 ]
