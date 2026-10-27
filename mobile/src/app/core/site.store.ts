@@ -17,12 +17,15 @@ export class SiteStore {
   private readonly title = inject(Title);
 
   readonly site = signal<Site>(readCache() ?? FALLBACK_SITE);
+  /** Set by each page; the document title reads "{page} · {brand}", as on the web UI. */
+  readonly pageTitle = signal<string | null>(null);
 
   constructor() {
+    effect(() => applyTheme(this.site().theme, this.document.documentElement));
     effect(() => {
-      const { theme, brand } = this.site();
-      applyTheme(theme, this.document.documentElement);
-      this.title.setTitle(brand.name);
+      const name = this.site().brand.name;
+      const page = this.pageTitle();
+      this.title.setTitle(page ? `${page} · ${name}` : name);
     });
   }
 

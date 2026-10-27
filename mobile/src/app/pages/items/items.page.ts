@@ -23,6 +23,7 @@ import {
 } from '@ionic/angular';
 
 import { ApiService, Health, Item } from '../../core/api.service';
+import { SiteStore } from '../../core/site.store';
 
 @Component({
   selector: 'app-items',
@@ -51,6 +52,7 @@ import { ApiService, Health, Item } from '../../core/api.service';
 })
 export class ItemsPage implements OnInit {
   private readonly api = inject(ApiService);
+  private readonly store = inject(SiteStore);
 
   readonly health = signal<Health | null>(null);
   readonly items = signal<Item[]>([]);
@@ -64,6 +66,7 @@ export class ItemsPage implements OnInit {
   readonly form = new FormGroup({ name: this.name });
 
   ngOnInit(): void {
+    this.store.pageTitle.set('Items');
     this.refresh();
   }
 
