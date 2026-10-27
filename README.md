@@ -46,6 +46,139 @@ uv run playwright install chromium   # the only browser the e2e tests use
 uv run task verify         # lint → unit → build+start stack → integration → browser → Locust → teardown
 ```
 
+## Start a new project from this template
+
+The worked example below turns Sgaffald into **Data Volunteer Network**.
+
+### 1. Create the repository (don't copy and paste the folders)
+
+Copying folders by hand drops dotfiles (`.github/`, `.env.*`, `.pre-commit-config.yaml`,
+`.python-version`) and loses the link back to the template. Pick one of these instead:
+
+- **From a GitHub template (recommended, clean history).** Tick *Settings → General →
+  Template repository* on `sgaffald` once, then either press **Use this template** or run:
+
+  ```bash
+  gh repo create cyberscallywags/data-volunteer-network \
+    --template cyberscallywags/sgaffald --public --clone
+  ```
+
+- **Clone and re-point (keeps the template's history, so later template fixes can be merged in).**
+
+  ```bash
+  git clone https://github.com/cyberscallywags/sgaffald.git data-volunteer-network
+  cd data-volunteer-network
+  git remote rename origin template
+  gh repo create cyberscallywags/data-volunteer-network --public --source . --push
+  # later, to pick up template improvements:
+  git fetch template && git merge template/main
+  ```
+
+Make the renaming changes below on a branch (for example `task/rename-from-template`) and open a
+PR. After `uv run pre-commit install`, the pre-push hook blocks pushes to `main`.
+
+### 2. Set the identity: `project.toml`, then `uv run task sync`
+
+| Field | Sgaffald | Data Volunteer Network |
+|---|---|---|
+| `project.name` | `Sgaffald` | `Data Volunteer Network` |
+| `project.slug` (lower-case; images, compose project) | `sgaffald` | `data-volunteer-network` |
+| `project.description` | `Cyber Scallywags base template: …` | `Connects volunteers with organisations that need their data skills` |
+| `project.year` | `2026` | the copyright year |
+| `organisation.name` / `url` / `motto` | Cyber Scallywags | keep, or the owning organisation |
+| `repository.owner` | `cyberscallywags` | `cyberscallywags` |
+| `repository.name` | `sgaffald` | `data-volunteer-network` |
+| `mobile.app_id` (reverse-DNS, no hyphens) | `com.cyberscallywags.sgaffald` | `com.cyberscallywags.datavolunteernetwork` |
+
+`uv run task sync` then rewrites every copy that the code cannot read directly. Don't edit these
+by hand:
+
+- `README.md` badges
+- `docs/zensical.toml` site name and footer
+- `.env.project` compose project and image prefixes
+- `pyproject.toml` description
+- `mobile/package.json`, `package-lock.json`, `ionic.config.json`, `src/index.html` title,
+  `src/app/core/meta.json` and `src/theme/_brand.scss`
+
+`uv run task test` fails if any of them are stale.
+
+### 3. Set the version: `pyproject.toml`
+
+- `version`: reset to `0.1.0` for the new project.
+
+### 4. Set the brand and content: `src/sgaffald/content/site.json`
+
+| Field | Change to |
+|---|---|
+| `brand.tagline` | e.g. `Data skills, where they're needed.` |
+| `brand.name`, `brand.collective`, `brand.collective_url` | optional; default to `project.name` and `organisation.name` |
+| `theme.primary` / `secondary` / `tertiary` | the new brand colours |
+| `welcome` and the pages | the project's own welcome page and sidebar pages |
+
+Run `uv run task sync` again afterwards so the mobile app's first paint uses the new colours. See
+[Site manifest](docs/content/site-manifest.md).
+
+### 5. Rename the Python package (optional)
+
+Identity no longer depends on the package name, so you can keep `sgaffald`. To rename it:
+
+```bash
+git mv src/sgaffald src/data_volunteer_network
+git grep -l sgaffald -- '*.py' '*.sh' '*.ts' pyproject.toml .env.test \
+  | xargs perl -pi -e 's/\bsgaffald\b/data_volunteer_network/g'
+uv lock
+```
+
+That covers `[project] name`, the `sgaffald[...]` extras, `force-include`, `--cov` and the
+coverage `omit` in `pyproject.toml`, the imports, `docker/entrypoint.sh` and
+`docs/sphinx/conf.py`. Afterwards, fix the two tests that assert on the old slug or title by
+hand: `tests/unit/test_docs.py` (`PROJECT_SLUG`) and `tests/e2e/test_docs_site.py` (`h1#sgaffald`).
+
+### 6. Model the domain
+
+Replace the sample `Item` with your own models, for example `Volunteer` and `Opportunity`:
+
+- `models.py`: `Item` / `ItemIn`
+- `db.py`: `ItemRepo`
+- `api/main.py`: the `/items` routes
+- `admin/app.py`
+- `ui/main.py`
+- `mobile/src/app/core/api.service.ts`, `mobile/src/app/pages/items/` and
+  `mobile/src/app/features.ts`
+
+The tests show the pattern for each layer.
+
+### 7. Replace images and styling
+
+- `docs/content/assets/images/`: hero, logo, crest and favicon. Update the hero path at the top
+  of this README and `logo` in `docs/zensical.toml`.
+- `mobile/src/assets/icon/favicon.png`
+- `docs/content/assets/stylesheets/scallywag.css`
+
+### 8. Environments
+
+- `.env.test`: `NEO4J_PASSWORD` (a throwaway value; the tests read the same one).
+- `.env.production`: copy it from `.env.production.example` and fill it in. It is never
+  committed. Set a real `LLM_MODEL` and add its provider extra, e.g. `pydantic-ai-slim[anthropic]`.
+
+### 9. GitHub repository settings (not copied by a template)
+
+- Secrets and variables:
+  - `CODECOV_TOKEN` secret
+  - `PROJECT_URL` variable and `PROJECT_TOKEN` secret, for the issue → project workflows
+- Branch rules on `main` and the GHCR package visibility. See
+  [One-off repository setup](docs/content/development/ci-cd.md#one-off-repository-setup).
+
+### 10. Clean up and check
+
+- Delete `reports/`.
+- Rewrite the intro above and the pages in `docs/content`: `index.md`, `about.md` and
+  `getting-started.md`.
+- `git grep -i sgaffald` lists anything left over.
+- `uv run task verify` runs the full gate.
+
+The fuller guide is [Make it yours](docs/content/guides/make-it-yours.md).
+
 ## Documentation
 
 Everything else (architecture, the site manifest, each service, testing, environments, CI/CD,
