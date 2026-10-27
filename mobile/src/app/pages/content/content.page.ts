@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, effect, inject, input } from '@angular/core';
 import {
   IonButton,
   IonButtons,
@@ -39,4 +39,8 @@ export class ContentPage {
   readonly slug = input.required<string>();
   readonly brand = computed(() => this.store.site().brand);
   readonly page = computed(() => this.store.page(this.slug()));
+
+  constructor() {
+    effect(() => this.store.pageTitle.set(this.page()?.title ?? null));
+  }
 }

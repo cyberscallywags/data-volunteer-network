@@ -49,6 +49,10 @@ export class SignInPage {
     }),
   });
 
+  constructor() {
+    inject(SiteStore).pageTitle.set('Sign in');
+  }
+
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();

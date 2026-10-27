@@ -44,7 +44,7 @@ def page_errors(page: Page) -> list[str]:
 def test_mobile_opens_on_welcome_from_the_site_manifest(page: Page, page_errors):
     site = get_site()
     page.goto(MOBILE)
-    expect(page).to_have_title(site.brand.name)
+    expect(page).to_have_title(f"{site.welcome.title} · {site.brand.name}")
     expect(page).to_have_url(re.compile(r"/welcome$"))
     expect(page.get_by_test_id("page-welcome")).to_contain_text(site.brand.name)
     expect(page.get_by_text("Planning the application")).to_be_visible()
@@ -70,7 +70,7 @@ def test_mobile_side_menu_reaches_project_pages_and_about(page: Page, page_error
 
 def test_mobile_items_shows_healthy_api(page: Page, page_errors):
     page.goto(f"{MOBILE}/items")
-    expect(page).to_have_title(get_site().brand.name)
+    expect(page).to_have_title(f"Items · {get_site().brand.name}")
     expect(page.get_by_test_id("health")).to_contain_text("ok · test")
     assert page.evaluate("matchMedia('(pointer: coarse)').matches")
     assert page_errors == []

@@ -3,7 +3,9 @@
     <ion-menu contentId="main" type="overlay">
       <ion-header>
         <ion-toolbar color="primary">
-          <ion-title>{{ site().brand.name }}</ion-title>
+          <ion-menu-toggle [autoHide]="false">
+            <ion-title routerLink="/welcome" routerDirection="root" class="brand">{{ site().brand.name }}</ion-title>
+          </ion-menu-toggle>
         </ion-toolbar>
       </ion-header>
 
@@ -64,7 +66,7 @@
             </ion-item>
           }
         </ion-list>
-        <ion-note class="ion-padding-horizontal">A {{ site().brand.collective }} project</ion-note>
+        <ion-note class="ion-padding-horizontal">{{ site().brand.name }} · a {{ site().brand.collective }} project</ion-note>
       </ion-footer>
     </ion-menu>
 

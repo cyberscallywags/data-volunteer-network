@@ -47,4 +47,12 @@ describe('SiteStore', () => {
     expect(root.style.getPropertyValue('--ion-color-primary')).toBe(SITE.theme.primary);
     expect(TestBed.inject(Title).getTitle()).toBe(SITE.brand.name);
   });
+
+  it('titles the document "{page} · {brand}" once a page names itself', () => {
+    const store = setup();
+    store.load();
+    store.pageTitle.set('Roadmap');
+    TestBed.tick();
+    expect(TestBed.inject(Title).getTitle()).toBe(`Roadmap · ${SITE.brand.name}`);
+  });
 });

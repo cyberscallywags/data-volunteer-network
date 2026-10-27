@@ -38,7 +38,7 @@ describe('AppComponent', () => {
     expect(about?.getAttribute('href')).toBe('/about');
     expect(about?.innerHTML).toContain(SITE.about.title);
     expect(el.querySelector('ion-footer ion-note')?.innerHTML).toContain(
-      `A ${SITE.brand.collective} project`,
+      `${SITE.brand.name} · a ${SITE.brand.collective} project`,
     );
   });
 
