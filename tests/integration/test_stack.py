@@ -92,11 +92,14 @@ def test_api_allows_native_app_origin():
 def test_docs_serves_portal_and_manual():
     assert httpx.get(f"{DOCS}/healthz").json() == {"status": "ok"}
     portal = httpx.get(f"{DOCS}/")
-    assert portal.status_code == 200 and "csw-crest-512.webp" in portal.text
+    assert portal.status_code == 200 and "brand-emblem-512.webp" in portal.text
+    assert "csw-mark-64.png" in portal.text  # the Cyber Scallywags partner credit
+    assert 'property="og:image"' in portal.text
     # /manual/ redirects to the Sphinx home page, which exists
     assert "url=manual.html" in httpx.get(f"{DOCS}/manual/").text
     assert httpx.get(f"{DOCS}/manual/manual.html").status_code == 200
-    assert httpx.get(f"{DOCS}/assets/images/csw-crest-512.png").status_code == 200
+    for image in ("brand-emblem-512.png", "brand-og-1200x630.jpg", "csw-crest-512.png"):
+        assert httpx.get(f"{DOCS}/assets/images/{image}").status_code == 200
 
 
 def test_docs_reference_is_generated_from_the_running_code():

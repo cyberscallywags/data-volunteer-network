@@ -48,6 +48,8 @@ def test_portal_is_light_first_with_the_hero_image(page: Page):
     expect(hero).to_be_visible()
     # the browser picked a WebP from srcset, not the PNG fallback
     assert hero.evaluate("img => img.currentSrc").endswith(".webp")
+    # Cyber Scallywags stays credited as a partner
+    expect(page.locator(".brand-hero .brand-credit img")).to_be_visible()
 
 
 def test_manual_is_light_first_and_links_back_to_the_portal(page: Page):

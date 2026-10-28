@@ -1,7 +1,7 @@
 # Sgaffald reference manual
 
-```{image} assets/images/csw-crest-512.png
-:alt: The Cyber Scallywags crest
+```{image} assets/images/brand-emblem-512.png
+:alt: The Data Volunteer Network emblem: three figures around a bar chart above Welsh valleys
 :class: brand-emblem brand-emblem--float
 ```
 
@@ -10,6 +10,9 @@ Cyber Scallywags · Reference manual
 
 The Sphinx edition of the Sgaffald docs: the same pages as the [portal](/), plus the
 [Python API](reference/python-api-sphinx.md) generated from docstrings.
+
+{.brand-credit}
+![Cyber Scallywags wolf-head mark](assets/images/csw-mark-64.png) In partnership with [Cyber Scallywags](https://cyberscallywags.com)
 
 ::::{grid} 1 2 2 3
 :gutter: 3

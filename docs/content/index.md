@@ -19,12 +19,17 @@ graph, tested and deployable from the first commit.
 [Get started](getting-started.md){ .md-button .md-button--primary }
 [Reference manual](/manual/){ .md-button }
 
+<div class="brand-credit">
+  <img src="assets/images/csw-mark-64.png" width="64" height="64" alt="Cyber Scallywags wolf-head mark">
+  <span>In partnership with <a href="https://cyberscallywags.com">Cyber Scallywags</a></span>
+</div>
+
 </div>
 
 <div class="brand-hero__emblem">
 <picture>
-  <source type="image/webp" srcset="assets/images/csw-crest-256.webp 256w, assets/images/csw-crest-512.webp 512w" sizes="(max-width: 600px) 60vw, 18rem">
-  <img src="assets/images/csw-crest-512.png" width="512" height="738" alt="The Cyber Scallywags crest: a wolf in a flat cap above the words Play, Learn, Share, Grow">
+  <source type="image/webp" srcset="assets/images/brand-emblem-256.webp 256w, assets/images/brand-emblem-512.webp 512w" sizes="(max-width: 600px) 60vw, 18rem">
+  <img src="assets/images/brand-emblem-512.png" width="512" height="512" alt="The Data Volunteer Network emblem: three figures around a bar chart above Welsh valleys, a pit-head and terraced streets, with the words Data Volunteer Network, Connecting Data Skills with Charities for a Brighter Future, and the Cyber Scallywags and DataKind UK logos">
 </picture>
 </div>
 

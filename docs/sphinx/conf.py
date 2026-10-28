@@ -60,8 +60,8 @@ html_title = f"{meta.name} manual"
 html_static_path = ["_static", "../content/assets/stylesheets"]
 html_css_files = ["brand.css", "furo.css"]
 html_js_files = ["light-first.js"]
-html_logo = "../content/assets/images/csw-mark-128.png"
-html_favicon = "../content/assets/images/favicon.png"
+html_logo = "../content/assets/images/brand-mark-128.png"
+html_favicon = "../content/assets/images/brand-favicon-32.png"
 templates_path = ["_templates"]
 # The manual's home is manual.html (index.md belongs to the portal); /manual/ redirects there.
 html_additional_pages = {"index": "redirect-to-manual.html"}

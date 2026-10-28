@@ -1,6 +1,10 @@
 <!-- Badges are generated from project.toml by `uv run task sync`. -->
 <p align="center">
-  <img src="docs/content/assets/images/sgaffald-hero.webp" alt="Sgaffald: scaffolding for the next project, ready to be renamed and grown" width="100%">
+  <img src="docs/content/assets/images/brand-banner-1920.webp" alt="Data Volunteer Network: connecting data skills with charities for a brighter future. Volunteers working together on laptops in a Welsh valley town" width="100%">
+</p>
+<p align="center">
+  <a href="https://cyberscallywags.com"><img src="docs/content/assets/images/csw-mark-64.png" alt="Cyber Scallywags wolf-head mark" width="32" height="32" align="middle"></a>
+  In partnership with <a href="https://cyberscallywags.com">Cyber Scallywags</a>
 </p>
 
 <!-- sync:header -->
@@ -150,9 +154,10 @@ The tests show the pattern for each layer.
 
 ### 7. Replace images and styling
 
-- `docs/content/assets/images/`: hero, logo, crest and favicon. Update the hero path at the top
-  of this README and `logo` in `docs/zensical.toml`.
-- `mobile/src/assets/icon/favicon.png`
+- `brand/`: the emblem, banner and mark masters. Replace them, then run `uv run task images` to
+  regenerate every size in `docs/content/assets/images/` and `mobile/src/assets/icon/`. The
+  generated files have role names (`brand-emblem-512.webp`), so no reference needs editing.
+- Partner credits (`csw-crest-*`, `csw-mark-*`) are kept as they are.
 - `docs/content/assets/stylesheets/brand.css`
 
 ### 8. Environments

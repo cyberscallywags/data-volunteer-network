@@ -56,8 +56,9 @@ nav = [
 
 [project.theme]
 language = "en"
-logo = "assets/images/csw-mark-64.png"
-favicon = "assets/images/favicon.png"
+custom_dir = "overrides"  # og:image and apple-touch-icon (overrides/main.html)
+logo = "assets/images/brand-mark-64.png"
+favicon = "assets/images/brand-favicon-32.png"
 features = [
   "content.code.copy",
   "content.tabs.link",
