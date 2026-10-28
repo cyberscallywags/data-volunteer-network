@@ -1,10 +1,10 @@
 import httpx
 import pytest
 
-from sgaffald.api.main import app as api_app
-from sgaffald.content import get_site
-from sgaffald.meta import get_meta
-from sgaffald.ui import main as ui
+from data_volunteer_network.api.main import app as api_app
+from data_volunteer_network.content import get_site
+from data_volunteer_network.meta import get_meta
+from data_volunteer_network.ui import main as ui
 
 
 @pytest.fixture
@@ -77,7 +77,7 @@ async def test_navbar_links_to_the_docs_portal(ui_client):
 
 
 async def test_navbar_hides_docs_without_a_docs_url(ui_client, monkeypatch):
-    from sgaffald.config import get_settings
+    from data_volunteer_network.config import get_settings
 
     monkeypatch.setattr(get_settings(), "docs_url", None)
     assert "localhost:8200" not in (await ui_client.get("/api/")).text

@@ -34,7 +34,7 @@ def load(root: Path) -> dict:
     site = json.loads(site_file.read_text())
     project, org = meta["project"], meta["organisation"]
     brand = {
-        # The same defaults as sgaffald.content.load_site.
+        # The same defaults as data_volunteer_network.content.load_site.
         "name": site["brand"].get("name") or project["name"],
         "tagline": site["brand"]["tagline"],
         "collective": site["brand"].get("collective") or org["name"],

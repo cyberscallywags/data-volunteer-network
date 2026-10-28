@@ -23,7 +23,7 @@ def test_generated_copies_are_current():
 @pytest.fixture
 def fork(tmp_path) -> Path:
     """A copy of every file sync_meta reads or writes, as if the template had just been forked."""
-    files = ["project.toml", "pyproject.toml", "src/sgaffald/content/site.json"]
+    files = ["project.toml", "pyproject.toml", "src/data_volunteer_network/content/site.json"]
     for rel in [*files, *map(str, sync_meta.OUTPUTS)]:
         (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(ROOT / rel, tmp_path / rel)
@@ -56,7 +56,7 @@ def test_renaming_the_project_updates_every_copy(fork):
 
 
 def test_check_reports_a_stale_copy(fork, capsys):
-    site = fork / "src/sgaffald/content/site.json"
+    site = fork / "src/data_volunteer_network/content/site.json"
     data = json.loads(site.read_text())
     data["theme"]["primary"] = "#112233"
     site.write_text(json.dumps(data))

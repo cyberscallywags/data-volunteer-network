@@ -9,15 +9,15 @@ import pytest
 from neo4j import GraphDatabase
 from playwright.sync_api import Page, expect
 
-from sgaffald.content import get_site
-from sgaffald.meta import get_meta
+from data_volunteer_network.content import get_site
+from data_volunteer_network.meta import get_meta
 
 pytestmark = pytest.mark.e2e
 
 UI = os.getenv("UI_URL", "http://localhost:8080")
 ADMIN = os.getenv("ADMIN_URL", "http://localhost:8501")
 NEO4J_URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
-NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "sgaffald-test-only")
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "data-volunteer-network-test-only")
 
 
 def items_named(name: str) -> list[dict]:

@@ -1,31 +1,31 @@
 # Python API
 
-Generated from the docstrings by Sphinx autodoc. `sgaffald.admin` is left out because a
+Generated from the docstrings by Sphinx autodoc. `data_volunteer_network.admin` is left out because a
 Streamlit script runs when it is imported.
 
 ```{eval-rst}
-.. automodule:: sgaffald.models
+.. automodule:: data_volunteer_network.models
    :members:
    :member-order: bysource
 
-.. automodule:: sgaffald.config
+.. automodule:: data_volunteer_network.config
    :members:
 
-.. automodule:: sgaffald.content
+.. automodule:: data_volunteer_network.content
    :members:
 
-.. automodule:: sgaffald.db
+.. automodule:: data_volunteer_network.db
    :members:
 
-.. automodule:: sgaffald.agent
+.. automodule:: data_volunteer_network.agent
    :members:
 
-.. automodule:: sgaffald.api.main
+.. automodule:: data_volunteer_network.api.main
    :members:
 
-.. automodule:: sgaffald.ui.main
+.. automodule:: data_volunteer_network.ui.main
    :members:
 
-.. automodule:: sgaffald.docgen
+.. automodule:: data_volunteer_network.docgen
    :members:
 ```

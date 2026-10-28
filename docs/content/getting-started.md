@@ -81,5 +81,5 @@ uv run playwright uninstall --all      # remove every downloaded browser...
 uv run playwright install chromium     # ...and fetch back the one the tests use
 ```
 
-To share or archive the template, use `git archive HEAD -o sgaffald.zip` rather than zipping
+To share or archive the template, use `git archive HEAD -o data_volunteer_network.zip` rather than zipping
 the folder, so only tracked files go in.

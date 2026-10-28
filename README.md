@@ -106,7 +106,7 @@ by hand:
 
 - `version`: reset to `0.1.0` for the new project.
 
-### 4. Set the brand and content: `src/sgaffald/content/site.json`
+### 4. Set the brand and content: `src/data_volunteer_network/content/site.json`
 
 | Field | Change to |
 |---|---|
@@ -194,5 +194,5 @@ uv run task docs_serve     # build both sites, serve on http://localhost:8200
 
 With the stack running (`uv run task up`) the `docs` container serves both on
 http://localhost:8200, and the web UI and mobile app link to it. Reference pages are generated
-from the code by `python -m sgaffald.docgen`, so they cannot drift; see
+from the code by `python -m data_volunteer_network.docgen`, so they cannot drift; see
 [The docs site](docs/content/services/docs.md).

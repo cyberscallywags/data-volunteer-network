@@ -15,7 +15,7 @@ ADMIN = os.getenv("ADMIN_URL", "http://localhost:8501")
 MOBILE = os.getenv("MOBILE_URL", "http://localhost:8100")
 DOCS = os.getenv("DOCS_URL", "http://localhost:8200")
 NEO4J_URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
-NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "sgaffald-test-only")
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "data-volunteer-network-test-only")
 
 
 @pytest.fixture(scope="module")
@@ -100,7 +100,7 @@ def test_docs_serves_portal_and_manual():
 
 
 def test_docs_reference_is_generated_from_the_running_code():
-    # the image ran sgaffald.docgen: every API route is documented on both sites
+    # the image ran data_volunteer_network.docgen: every API route is documented on both sites
     paths = httpx.get(f"{API}/openapi.json").json()["paths"]
     portal = httpx.get(f"{DOCS}/reference/http-api/").text
     manual = httpx.get(f"{DOCS}/manual/reference/http-api.html").text

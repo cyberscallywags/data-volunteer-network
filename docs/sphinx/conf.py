@@ -8,13 +8,15 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).parent
-sys.path.insert(0, str(HERE.parents[1] / "src"))  # autodoc imports sgaffald without install
+# autodoc imports data_volunteer_network without install
+sys.path.insert(0, str(HERE.parents[1] / "src"))
 
 # Import FastAPI before autodoc documents any Pydantic model's members: once it has, FastAPI's
-# own models (extra="allow") fail to build, and sgaffald.api/ui could not be documented.
+# own models (extra="allow") fail to build, and data_volunteer_network.api/ui could not be
+# documented.
 import fastapi  # noqa: E402, F401
 
-from sgaffald.meta import get_meta  # noqa: E402
+from data_volunteer_network.meta import get_meta  # noqa: E402
 
 meta = get_meta()  # project.toml, plus the version from pyproject.toml
 project = meta.name

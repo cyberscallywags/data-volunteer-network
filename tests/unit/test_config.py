@@ -1,4 +1,4 @@
-from sgaffald.config import Settings
+from data_volunteer_network.config import Settings
 
 
 def test_defaults_are_safe_for_tests(monkeypatch):

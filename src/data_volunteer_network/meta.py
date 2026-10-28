@@ -1,6 +1,6 @@
 """Project identity from project.toml: name, organisation, repository, app id. The version comes
 from the installed package (pyproject.toml). Content (brand, theme, pages) is site.json's job;
-see sgaffald.content."""
+see data_volunteer_network.content."""
 
 import tomllib
 from functools import lru_cache

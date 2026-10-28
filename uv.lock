@@ -410,6 +410,114 @@ wheels = [
 ]
 
 [[package]]
+name = "data-volunteer-network"
+version = "0.1.0"
+source = { editable = "." }
+dependencies = [
+    { name = "httpx" },
+    { name = "neo4j" },
+    { name = "pydantic" },
+    { name = "pydantic-settings" },
+]
+
+[package.optional-dependencies]
+admin = [
+    { name = "streamlit" },
+]
+api = [
+    { name = "fastapi" },
+    { name = "pydantic-ai-slim" },
+    { name = "uvicorn", extra = ["standard"] },
+]
+ui = [
+    { name = "fastapi" },
+    { name = "fastui" },
+    { name = "python-multipart" },
+    { name = "uvicorn", extra = ["standard"] },
+]
+
+[package.dev-dependencies]
+admin = [
+    { name = "data-volunteer-network", extra = ["admin"] },
+]
+dev = [
+    { name = "data-volunteer-network", extra = ["api", "ui"] },
+    { name = "pillow" },
+    { name = "pre-commit" },
+    { name = "pytest" },
+    { name = "pytest-asyncio" },
+    { name = "pytest-cov" },
+    { name = "ruff" },
+    { name = "taskipy" },
+    { name = "watchfiles" },
+]
+docs = [
+    { name = "data-volunteer-network", extra = ["api", "ui"] },
+    { name = "furo" },
+    { name = "mkdocstrings-python" },
+    { name = "myst-parser" },
+    { name = "sphinx" },
+    { name = "sphinx-autobuild" },
+    { name = "sphinx-copybutton" },
+    { name = "sphinx-design" },
+    { name = "sphinxcontrib-mermaid" },
+    { name = "taskipy" },
+    { name = "zensical" },
+]
+e2e = [
+    { name = "pytest-playwright" },
+]
+load = [
+    { name = "locust" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "fastapi", marker = "extra == 'api'", specifier = ">=0.120" },
+    { name = "fastapi", marker = "extra == 'ui'", specifier = ">=0.120" },
+    { name = "fastui", marker = "extra == 'ui'", specifier = ">=0.7" },
+    { name = "httpx", specifier = ">=0.28" },
+    { name = "neo4j", specifier = ">=6.0" },
+    { name = "pydantic", specifier = ">=2.12" },
+    { name = "pydantic-ai-slim", marker = "extra == 'api'", specifier = ">=1.0" },
+    { name = "pydantic-settings", specifier = ">=2.11" },
+    { name = "python-multipart", marker = "extra == 'ui'", specifier = ">=0.0.20" },
+    { name = "streamlit", marker = "extra == 'admin'", specifier = ">=1.50" },
+    { name = "uvicorn", extras = ["standard"], marker = "extra == 'api'", specifier = ">=0.38" },
+    { name = "uvicorn", extras = ["standard"], marker = "extra == 'ui'", specifier = ">=0.38" },
+]
+provides-extras = ["api", "ui", "admin"]
+
+[package.metadata.requires-dev]
+admin = [{ name = "data-volunteer-network", extras = ["admin"] }]
+dev = [
+    { name = "data-volunteer-network", extras = ["api", "ui"] },
+    { name = "pillow", specifier = ">=12" },
+    { name = "pre-commit", specifier = ">=4.3" },
+    { name = "pytest", specifier = ">=8.4" },
+    { name = "pytest-asyncio", specifier = ">=1.2" },
+    { name = "pytest-cov", specifier = ">=7.0" },
+    { name = "ruff", specifier = ">=0.14" },
+    { name = "taskipy", specifier = ">=1.14" },
+    { name = "watchfiles", specifier = ">=1.1" },
+]
+docs = [
+    { name = "data-volunteer-network", extras = ["api", "ui"] },
+    { name = "furo", specifier = ">=2025.12.19" },
+    { name = "mkdocstrings-python", specifier = ">=2.0.10" },
+    { name = "myst-parser", specifier = ">=5.1" },
+    { name = "sphinx", specifier = ">=9.2" },
+    { name = "sphinx-autobuild", specifier = ">=2025.8.25" },
+    { name = "sphinx-copybutton", specifier = ">=0.5.2" },
+    { name = "sphinx-design", specifier = ">=0.7" },
+    { name = "sphinxcontrib-mermaid", specifier = ">=2.1" },
+    { name = "taskipy", specifier = ">=1.14" },
+    { name = "zensical", specifier = ">=0.0.71" },
+]
+e2e = [{ name = "pytest-playwright", specifier = ">=0.10.0" }]
+load = [{ name = "locust", specifier = ">=2.42" }]
+
+[[package]]
 name = "deepmerge"
 version = "3.0.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2145,114 +2253,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/6a/2e/da3d9589bae8e8b58f3a48bd5bc0b980232fb14a83bf02c3be7660f87c1b/ruff-0.17.1-py3-none-win_amd64.whl", hash = "sha256:5df76f16580fab58d0f6c98a3ac254a4abceb7b2489b8b678335869cff77b3d7", size = 10097955, upload-time = "2026-10-15T15:23:13.309Z" },
     { url = "https://files.pythonhosted.org/packages/df/c9/0f2a4dea06a5e12c1191ee3d96b1e1233797d0d5e18f97a2b909a95a9836/ruff-0.17.1-py3-none-win_arm64.whl", hash = "sha256:42400b9a6ff8515ff27796f07f92e0195be011c86e81e381606f58ea5502fef4", size = 9853542, upload-time = "2026-10-15T15:23:16.05Z" },
 ]
-
-[[package]]
-name = "sgaffald"
-version = "0.1.0"
-source = { editable = "." }
-dependencies = [
-    { name = "httpx" },
-    { name = "neo4j" },
-    { name = "pydantic" },
-    { name = "pydantic-settings" },
-]
-
-[package.optional-dependencies]
-admin = [
-    { name = "streamlit" },
-]
-api = [
-    { name = "fastapi" },
-    { name = "pydantic-ai-slim" },
-    { name = "uvicorn", extra = ["standard"] },
-]
-ui = [
-    { name = "fastapi" },
-    { name = "fastui" },
-    { name = "python-multipart" },
-    { name = "uvicorn", extra = ["standard"] },
-]
-
-[package.dev-dependencies]
-admin = [
-    { name = "sgaffald", extra = ["admin"] },
-]
-dev = [
-    { name = "pillow" },
-    { name = "pre-commit" },
-    { name = "pytest" },
-    { name = "pytest-asyncio" },
-    { name = "pytest-cov" },
-    { name = "ruff" },
-    { name = "sgaffald", extra = ["api", "ui"] },
-    { name = "taskipy" },
-    { name = "watchfiles" },
-]
-docs = [
-    { name = "furo" },
-    { name = "mkdocstrings-python" },
-    { name = "myst-parser" },
-    { name = "sgaffald", extra = ["api", "ui"] },
-    { name = "sphinx" },
-    { name = "sphinx-autobuild" },
-    { name = "sphinx-copybutton" },
-    { name = "sphinx-design" },
-    { name = "sphinxcontrib-mermaid" },
-    { name = "taskipy" },
-    { name = "zensical" },
-]
-e2e = [
-    { name = "pytest-playwright" },
-]
-load = [
-    { name = "locust" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "fastapi", marker = "extra == 'api'", specifier = ">=0.120" },
-    { name = "fastapi", marker = "extra == 'ui'", specifier = ">=0.120" },
-    { name = "fastui", marker = "extra == 'ui'", specifier = ">=0.7" },
-    { name = "httpx", specifier = ">=0.28" },
-    { name = "neo4j", specifier = ">=6.0" },
-    { name = "pydantic", specifier = ">=2.12" },
-    { name = "pydantic-ai-slim", marker = "extra == 'api'", specifier = ">=1.0" },
-    { name = "pydantic-settings", specifier = ">=2.11" },
-    { name = "python-multipart", marker = "extra == 'ui'", specifier = ">=0.0.20" },
-    { name = "streamlit", marker = "extra == 'admin'", specifier = ">=1.50" },
-    { name = "uvicorn", extras = ["standard"], marker = "extra == 'api'", specifier = ">=0.38" },
-    { name = "uvicorn", extras = ["standard"], marker = "extra == 'ui'", specifier = ">=0.38" },
-]
-provides-extras = ["api", "ui", "admin"]
-
-[package.metadata.requires-dev]
-admin = [{ name = "sgaffald", extras = ["admin"] }]
-dev = [
-    { name = "pillow", specifier = ">=12" },
-    { name = "pre-commit", specifier = ">=4.3" },
-    { name = "pytest", specifier = ">=8.4" },
-    { name = "pytest-asyncio", specifier = ">=1.2" },
-    { name = "pytest-cov", specifier = ">=7.0" },
-    { name = "ruff", specifier = ">=0.14" },
-    { name = "sgaffald", extras = ["api", "ui"] },
-    { name = "taskipy", specifier = ">=1.14" },
-    { name = "watchfiles", specifier = ">=1.1" },
-]
-docs = [
-    { name = "furo", specifier = ">=2025.12.19" },
-    { name = "mkdocstrings-python", specifier = ">=2.0.10" },
-    { name = "myst-parser", specifier = ">=5.1" },
-    { name = "sgaffald", extras = ["api", "ui"] },
-    { name = "sphinx", specifier = ">=9.2" },
-    { name = "sphinx-autobuild", specifier = ">=2025.8.25" },
-    { name = "sphinx-copybutton", specifier = ">=0.5.2" },
-    { name = "sphinx-design", specifier = ">=0.7" },
-    { name = "sphinxcontrib-mermaid", specifier = ">=2.1" },
-    { name = "taskipy", specifier = ">=1.14" },
-    { name = "zensical", specifier = ">=0.0.71" },
-]
-e2e = [{ name = "pytest-playwright", specifier = ">=0.10.0" }]
-load = [{ name = "locust", specifier = ">=2.42" }]
 
 [[package]]
 name = "simple-websocket"

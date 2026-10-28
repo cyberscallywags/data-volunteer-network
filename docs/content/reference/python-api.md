@@ -3,18 +3,18 @@
 Generated from the docstrings by mkdocstrings. The [reference manual](/manual/reference/python-api-sphinx.html)
 has the Sphinx autodoc edition of the same modules.
 
-::: sgaffald.models
+::: data_volunteer_network.models
 
-::: sgaffald.config
+::: data_volunteer_network.config
 
-::: sgaffald.content
+::: data_volunteer_network.content
 
-::: sgaffald.db
+::: data_volunteer_network.db
 
-::: sgaffald.agent
+::: data_volunteer_network.agent
 
-::: sgaffald.api.main
+::: data_volunteer_network.api.main
 
-::: sgaffald.ui.main
+::: data_volunteer_network.ui.main
 
-::: sgaffald.docgen
+::: data_volunteer_network.docgen
