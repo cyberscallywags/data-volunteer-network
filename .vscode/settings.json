@@ -1,0 +1,10 @@
+{
+  "todo-tree.general.tags": ["TODO", "FIXME", "HACK"],
+  "todo-tree.filtering.excludeGlobs": [
+    "**/node_modules",
+    "**/.venv",
+    "**/site",
+    "**/www",
+    "**/.angular"
+  ]
+}

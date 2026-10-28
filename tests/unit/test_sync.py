@@ -23,7 +23,7 @@ def test_generated_copies_are_current():
 @pytest.fixture
 def fork(tmp_path) -> Path:
     """A copy of every file sync_meta reads or writes, as if the template had just been forked."""
-    files = ["project.toml", "pyproject.toml", "src/sgaffald/content/site.json"]
+    files = ["project.toml", "pyproject.toml", "src/data_volunteer_network/content/site.json"]
     for rel in [*files, *map(str, sync_meta.OUTPUTS)]:
         (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(ROOT / rel, tmp_path / rel)
@@ -36,8 +36,8 @@ def test_renaming_the_project_updates_every_copy(fork):
     # [repository] first, whatever it holds, so the slug swap below cannot touch it
     text = re.sub(r'^owner = ".*"', 'owner = "Criw"', text, flags=re.M)
     text = re.sub(r'(\[repository\][^\[]*?^name = )"[^"]*"', r'\1"Castell"', text, flags=re.M)
-    for old, new in [('"Sgaffald"', '"Castell"'), ('"sgaffald"', '"castell"')]:
-        text = text.replace(old, new)
+    text = re.sub(r'^(\[project\][^\[]*?^name = )"[^"]*"', r'\1"Castell"', text, flags=re.M)
+    text = re.sub(r'^slug = "[^"]*"', 'slug = "castell"', text, flags=re.M)
     project.write_text(text)
 
     assert sync_meta.main(["--root", str(fork)]) == 0
@@ -56,7 +56,7 @@ def test_renaming_the_project_updates_every_copy(fork):
 
 
 def test_check_reports_a_stale_copy(fork, capsys):
-    site = fork / "src/sgaffald/content/site.json"
+    site = fork / "src/data_volunteer_network/content/site.json"
     data = json.loads(site.read_text())
     data["theme"]["primary"] = "#112233"
     site.write_text(json.dumps(data))

@@ -1,22 +1,26 @@
 <!-- Badges are generated from project.toml by `uv run task sync`. -->
 <p align="center">
-  <img src="docs/content/assets/images/sgaffald-hero.webp" alt="Sgaffald: scaffolding for the next project, ready to be renamed and grown" width="100%">
+  <img src="docs/content/assets/images/brand-banner-1920.webp" alt="Data Volunteer Network: connecting data skills with charities for a brighter future. Volunteers working together on laptops in a Welsh valley town" width="100%">
+</p>
+<p align="center">
+  <a href="https://cyberscallywags.com"><img src="docs/content/assets/images/csw-mark-64.png" alt="Cyber Scallywags wolf-head mark" width="32" height="32" align="middle"></a>
+  In partnership with <a href="https://cyberscallywags.com">Cyber Scallywags</a>
 </p>
 
 <!-- sync:header -->
 ---
 
-[![CI](https://img.shields.io/github/actions/workflow/status/cyberscallywags/sgaffald/ci.yml?event=pull_request&label=ci&logo=githubactions&logoColor=white)](https://github.com/cyberscallywags/sgaffald/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/actions/workflow/status/cyberscallywags/sgaffald/release.yml?label=release&logo=githubactions&logoColor=white)](https://github.com/cyberscallywags/sgaffald/actions/workflows/release.yml)
-[![Coverage](https://img.shields.io/codecov/c/github/cyberscallywags/sgaffald?logo=codecov&logoColor=white)](https://codecov.io/gh/cyberscallywags/sgaffald)
+[![CI](https://img.shields.io/github/actions/workflow/status/cyberscallywags/data-volunteer-network/ci.yml?event=pull_request&label=ci&logo=githubactions&logoColor=white)](https://github.com/cyberscallywags/data-volunteer-network/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/actions/workflow/status/cyberscallywags/data-volunteer-network/release.yml?label=release&logo=githubactions&logoColor=white)](https://github.com/cyberscallywags/data-volunteer-network/actions/workflows/release.yml)
+[![Coverage](https://img.shields.io/codecov/c/github/cyberscallywags/data-volunteer-network?logo=codecov&logoColor=white)](https://codecov.io/gh/cyberscallywags/data-volunteer-network)
 [![Python](https://img.shields.io/badge/python-3.14-3776AB?logo=python&logoColor=white)](.python-version)
-[![Top language](https://img.shields.io/github/languages/top/cyberscallywags/sgaffald?logo=github&logoColor=white)](https://github.com/cyberscallywags/sgaffald)
-[![Languages](https://img.shields.io/github/languages/count/cyberscallywags/sgaffald?logo=github&logoColor=white)](https://github.com/cyberscallywags/sgaffald)
-[![Open issues](https://img.shields.io/github/issues/cyberscallywags/sgaffald?logo=github&logoColor=white)](https://github.com/cyberscallywags/sgaffald/issues)
-[![Open PRs](https://img.shields.io/github/issues-pr/cyberscallywags/sgaffald?logo=github&logoColor=white)](https://github.com/cyberscallywags/sgaffald/pulls)
-[![Stars](https://img.shields.io/github/stars/cyberscallywags/sgaffald?logo=github&logoColor=white)](https://github.com/cyberscallywags/sgaffald/stargazers)
-[![Forks](https://img.shields.io/github/forks/cyberscallywags/sgaffald?logo=github&logoColor=white)](https://github.com/cyberscallywags/sgaffald/network/members)
-[![Last commit](https://img.shields.io/github/last-commit/cyberscallywags/sgaffald?logo=github&logoColor=white)](https://github.com/cyberscallywags/sgaffald/commits)
+[![Top language](https://img.shields.io/github/languages/top/cyberscallywags/data-volunteer-network?logo=github&logoColor=white)](https://github.com/cyberscallywags/data-volunteer-network)
+[![Languages](https://img.shields.io/github/languages/count/cyberscallywags/data-volunteer-network?logo=github&logoColor=white)](https://github.com/cyberscallywags/data-volunteer-network)
+[![Open issues](https://img.shields.io/github/issues/cyberscallywags/data-volunteer-network?logo=github&logoColor=white)](https://github.com/cyberscallywags/data-volunteer-network/issues)
+[![Open PRs](https://img.shields.io/github/issues-pr/cyberscallywags/data-volunteer-network?logo=github&logoColor=white)](https://github.com/cyberscallywags/data-volunteer-network/pulls)
+[![Stars](https://img.shields.io/github/stars/cyberscallywags/data-volunteer-network?logo=github&logoColor=white)](https://github.com/cyberscallywags/data-volunteer-network/stargazers)
+[![Forks](https://img.shields.io/github/forks/cyberscallywags/data-volunteer-network?logo=github&logoColor=white)](https://github.com/cyberscallywags/data-volunteer-network/network/members)
+[![Last commit](https://img.shields.io/github/last-commit/cyberscallywags/data-volunteer-network?logo=github&logoColor=white)](https://github.com/cyberscallywags/data-volunteer-network/commits)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](.pre-commit-config.yaml)
@@ -106,7 +110,7 @@ by hand:
 
 - `version`: reset to `0.1.0` for the new project.
 
-### 4. Set the brand and content: `src/sgaffald/content/site.json`
+### 4. Set the brand and content: `src/data_volunteer_network/content/site.json`
 
 | Field | Change to |
 |---|---|
@@ -130,9 +134,13 @@ uv lock
 ```
 
 That covers `[project] name`, the `sgaffald[...]` extras, `force-include`, `--cov` and the
-coverage `omit` in `pyproject.toml`, the imports, `docker/entrypoint.sh` and
+coverage `omit` in `pyproject.toml`, the imports, `serve.py` and
 `docs/sphinx/conf.py`. Afterwards, fix the two tests that assert on the old slug or title by
-hand: `tests/unit/test_docs.py` (`PROJECT_SLUG`) and `tests/e2e/test_docs_site.py` (`h1#sgaffald`).
+hand: `tests/unit/test_docs.py` (`PROJECT_SLUG`) and `tests/e2e/test_docs_site.py` (the portal
+`h1` anchor).
+The replacement also turns the Neo4j test password `sgaffald-test-only` into
+`<package>-test-only`; that still works, but the slug form (`data-volunteer-network-test-only`)
+reads better.
 
 ### 6. Model the domain
 
@@ -150,10 +158,11 @@ The tests show the pattern for each layer.
 
 ### 7. Replace images and styling
 
-- `docs/content/assets/images/`: hero, logo, crest and favicon. Update the hero path at the top
-  of this README and `logo` in `docs/zensical.toml`.
-- `mobile/src/assets/icon/favicon.png`
-- `docs/content/assets/stylesheets/scallywag.css`
+- `brand/`: the emblem, banner and mark masters. Replace them, then run `uv run task images` to
+  regenerate every size in `docs/content/assets/images/` and `mobile/src/assets/icon/`. The
+  generated files have role names (`brand-emblem-512.webp`), so no reference needs editing.
+- Partner credits (`csw-crest-*`, `csw-mark-*`) are kept as they are.
+- `docs/content/assets/stylesheets/brand.css`
 
 ### 8. Environments
 
@@ -194,5 +203,5 @@ uv run task docs_serve     # build both sites, serve on http://localhost:8200
 
 With the stack running (`uv run task up`) the `docs` container serves both on
 http://localhost:8200, and the web UI and mobile app link to it. Reference pages are generated
-from the code by `python -m sgaffald.docgen`, so they cannot drift; see
+from the code by `python -m data_volunteer_network.docgen`, so they cannot drift; see
 [The docs site](docs/content/services/docs.md).

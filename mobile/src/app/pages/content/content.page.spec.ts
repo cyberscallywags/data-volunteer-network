@@ -26,6 +26,16 @@ describe('ContentPage', () => {
     expect(el.querySelector('.hero h1')?.textContent).toBe(SITE.brand.name);
     expect(el.textContent).toContain('Plan it, ship it');
     expect(el.textContent).toContain('Name the domain');
+    expect(el.querySelector('.hero img.emblem')?.getAttribute('src')).toContain('brand-emblem');
+  });
+
+  it('credits the partner collective on welcome and About', () => {
+    for (const slug of ['welcome', 'about']) {
+      const credit = render(slug).querySelector('[data-testid="partner-credit"]');
+      TestBed.resetTestingModule();
+      expect(credit?.textContent).toContain(`In partnership with ${SITE.brand.collective}`);
+      expect(credit?.querySelector('img')?.getAttribute('src')).toContain('csw-mark-64');
+    }
   });
 
   it('renders the About page for the collective', () => {

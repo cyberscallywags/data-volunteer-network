@@ -1,6 +1,6 @@
 # About Cyber Scallywags
 
-![The Cyber Scallywags crest: a wolf in a flat cap above the words Cyber Scallywags, Play, Learn, Share, Grow](assets/images/csw-crest-512.png){.csw-crest}
+![The Cyber Scallywags crest: a wolf in a flat cap above the words Cyber Scallywags, Play, Learn, Share, Grow](assets/images/csw-crest-512.png){.brand-emblem}
 
 **PLAY • LEARN • SHARE • GROW**
 
@@ -8,7 +8,8 @@ We are a community-led movement helping people explore, learn, practise, and sha
 skills, data engineering, AI, graph technology, and cybersecurity. Rebellious curiosity
 meets production-grade software craftsmanship.
 
-Born in the Welsh Valleys, an open community commons.
+Born in the Welsh Valleys, an open community commons, and a partner in the Data Volunteer
+Network.
 
 ## How we work
 
@@ -27,10 +28,11 @@ Born in the Welsh Valleys, an open community commons.
 | **Graphinista** | Graph technology and connected data |
 | **Datanista** | Data engineering |
 
-## Why Sgaffald
+## Built on Sgaffald
 
-*Sgaffald* is Welsh for scaffold. It is how Cyber Scallywags projects start: tested,
-deployable and documented from the first commit, so anyone can pick one up and join in.
+Data Volunteer Network started from *Sgaffald* (Welsh for scaffold), the template Cyber
+Scallywags projects start from: tested, deployable and documented from the first commit, so
+anyone can pick one up and join in.
 
 ## Find us
 

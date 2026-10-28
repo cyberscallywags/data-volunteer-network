@@ -24,6 +24,5 @@ ENV SERVICE=${SERVICE} PATH=/app/.venv/bin:$PATH PYTHONUNBUFFERED=1
 RUN useradd --system --uid 10001 app
 WORKDIR /app
 COPY --from=builder /app/.venv /app/.venv
-COPY docker/entrypoint.sh /entrypoint.sh
 USER app
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["python", "-m", "data_volunteer_network.serve"]

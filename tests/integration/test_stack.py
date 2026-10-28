@@ -15,7 +15,7 @@ ADMIN = os.getenv("ADMIN_URL", "http://localhost:8501")
 MOBILE = os.getenv("MOBILE_URL", "http://localhost:8100")
 DOCS = os.getenv("DOCS_URL", "http://localhost:8200")
 NEO4J_URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
-NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "sgaffald-test-only")
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "data-volunteer-network-test-only")
 
 
 @pytest.fixture(scope="module")
@@ -92,15 +92,18 @@ def test_api_allows_native_app_origin():
 def test_docs_serves_portal_and_manual():
     assert httpx.get(f"{DOCS}/healthz").json() == {"status": "ok"}
     portal = httpx.get(f"{DOCS}/")
-    assert portal.status_code == 200 and "csw-crest-512.webp" in portal.text
+    assert portal.status_code == 200 and "brand-emblem-512.webp" in portal.text
+    assert "csw-mark-64.png" in portal.text  # the Cyber Scallywags partner credit
+    assert 'property="og:image"' in portal.text
     # /manual/ redirects to the Sphinx home page, which exists
     assert "url=manual.html" in httpx.get(f"{DOCS}/manual/").text
     assert httpx.get(f"{DOCS}/manual/manual.html").status_code == 200
-    assert httpx.get(f"{DOCS}/assets/images/csw-crest-512.png").status_code == 200
+    for image in ("brand-emblem-512.png", "brand-og-1200x630.jpg", "csw-crest-512.png"):
+        assert httpx.get(f"{DOCS}/assets/images/{image}").status_code == 200
 
 
 def test_docs_reference_is_generated_from_the_running_code():
-    # the image ran sgaffald.docgen: every API route is documented on both sites
+    # the image ran data_volunteer_network.docgen: every API route is documented on both sites
     paths = httpx.get(f"{API}/openapi.json").json()["paths"]
     portal = httpx.get(f"{DOCS}/reference/http-api/").text
     manual = httpx.get(f"{DOCS}/manual/reference/http-api.html").text

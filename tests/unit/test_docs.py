@@ -6,10 +6,10 @@ from pathlib import Path
 
 import pytest
 
-from sgaffald import docgen
-from sgaffald.api.main import app
-from sgaffald.config import Settings
-from sgaffald.meta import load_meta
+from data_volunteer_network import docgen
+from data_volunteer_network.api.main import app
+from data_volunteer_network.config import Settings
+from data_volunteer_network.meta import get_meta, load_meta
 
 ROOT = Path(__file__).parents[2]
 DOCS = ROOT / "docs"
@@ -62,7 +62,7 @@ def test_configuration_lists_every_setting_without_secrets(pages):
     text = pages["configuration.md"]
     for name in Settings.model_fields:
         assert f"`{name.upper()}`" in text
-    assert "sgaffald-test-only" not in text  # the .env.test password
+    assert "data-volunteer-network-test-only" not in text  # the .env.test password
     assert "| `NEO4J_PASSWORD` | (set) |" in text
     # an env file's opening comment describes the file, not its first variable
     assert "Copy to .env.production" not in text
@@ -76,7 +76,7 @@ def test_tasks_page_lists_every_task(pages):
 
 
 def test_configuration_lists_the_project_env_file(pages):
-    assert "| `PROJECT_SLUG` | `sgaffald` |" in pages["configuration.md"]
+    assert f"| `PROJECT_SLUG` | `{get_meta().slug}` |" in pages["configuration.md"]
 
 
 def test_project_metadata_page_shows_identity_and_generated_copies(pages):

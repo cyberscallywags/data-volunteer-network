@@ -11,6 +11,13 @@
   @if (page(); as page) {
     <header class="hero" [attr.data-testid]="'page-' + page.slug">
       @if (page.slug === 'welcome') {
+        <img
+          class="emblem"
+          src="assets/brand/brand-emblem-256.webp"
+          width="256"
+          height="256"
+          [alt]="brand().name + ' emblem'"
+        />
         <h1>{{ brand().name }}</h1>
         @if (brand().tagline) {
           <p class="tagline">{{ brand().tagline }}</p>
@@ -20,6 +27,12 @@
       }
       @if (page.summary) {
         <p>{{ page.summary }}</p>
+      }
+      @if (page.slug === 'welcome' || page.slug === 'about') {
+        <p class="credit" data-testid="partner-credit">
+          <img src="assets/brand/csw-mark-64.png" width="32" height="32" [alt]="brand().collective + ' wolf-head mark'" />
+          In partnership with {{ brand().collective }}
+        </p>
       }
     </header>
 

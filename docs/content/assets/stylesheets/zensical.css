@@ -1,78 +1,77 @@
-/* Scallywag Neon for Zensical: maps the tokens in scallywag.css onto the theme. */
-
-[data-md-color-scheme="slate"] {
-  --md-hue: 215;
-  --md-default-bg-color: var(--csw-night);
-  --md-default-fg-color: #e6edf3;
-  --md-default-fg-color--light: var(--csw-slate-300);
-  --md-default-fg-color--lighter: var(--csw-slate-400);
-  --md-primary-fg-color: var(--csw-surface);
-  --md-primary-bg-color: #ffffff;
-  --md-accent-fg-color: var(--csw-magenta);
-  --md-typeset-a-color: var(--csw-blue);
-  --md-code-bg-color: var(--csw-card);
-  --md-footer-bg-color: var(--csw-surface);
-  --md-footer-bg-color--dark: var(--csw-night);
-}
+/* Data Volunteer Network for Zensical: maps the tokens in brand.css onto the theme. */
 
 [data-md-color-scheme="default"] {
-  --md-primary-fg-color: var(--csw-surface);
+  --md-default-bg-color: #ffffff;
+  --md-default-fg-color--light: var(--brand-muted);
+  --md-primary-fg-color: var(--brand-navy);
   --md-primary-bg-color: #ffffff;
-  --md-accent-fg-color: var(--csw-magenta-ink);
-  --md-typeset-a-color: var(--csw-blue-ink);
+  --md-accent-fg-color: var(--brand-orange-ink);
+  --md-typeset-a-color: var(--brand-teal);
+  --md-footer-bg-color: var(--brand-navy);
 }
 
-/* Header + tabs: the site's dark bar with a blue-to-magenta rule underneath. */
-.md-header,
-.md-tabs {
-  background-color: var(--csw-surface);
+[data-md-color-scheme="slate"] {
+  --md-hue: 210;
+  --md-default-bg-color: var(--brand-night);
+  --md-default-fg-color: var(--brand-fg-dark);
+  --md-default-fg-color--light: var(--brand-muted-dark);
+  --md-primary-fg-color: var(--brand-surface);
+  --md-primary-bg-color: #ffffff;
+  --md-accent-fg-color: var(--brand-orange-soft);
+  --md-typeset-a-color: var(--brand-teal-bright);
+  --md-code-bg-color: var(--brand-card);
+  --md-footer-bg-color: var(--brand-surface);
+  --md-footer-bg-color--dark: var(--brand-night);
 }
 
+/* Header: the navy bar with a teal-to-orange rule underneath. */
 .md-header {
-  border-bottom: 2px solid transparent;
-  border-image: var(--csw-gradient) 1;
+  border-bottom: 3px solid transparent;
+  border-image: var(--brand-gradient) 1;
 }
 
 .md-header__topic:first-child {
-  font-family: var(--csw-mono);
   font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
 
-/* Headings: gradient h1, blue h2 in dark. */
+/* Headings: navy h1 and teal h2 on light; light text and bright teal on dark. */
 .md-typeset h1 {
   font-weight: 800;
-  background: var(--csw-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--brand-navy);
 }
 
-/* Gradient text would paint the permalink too; the page title needs none. */
-.md-typeset h1 .headerlink {
-  display: none;
+.md-typeset h2 {
+  color: var(--brand-teal);
+}
+
+[data-md-color-scheme="slate"] .md-typeset h1 {
+  color: var(--brand-fg-dark);
 }
 
 [data-md-color-scheme="slate"] .md-typeset h2 {
-  color: var(--csw-blue);
+  color: var(--brand-teal-bright);
 }
 
-/* Cards and tables on dark surfaces, glowing on hover like the site's cards. */
-[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li,
-[data-md-color-scheme="slate"] .md-typeset table:not([class]) {
-  background: var(--csw-surface);
-  border-color: var(--csw-border);
-}
-
+/* Cards and tables: soft border, lifted on hover. */
 .md-typeset .grid.cards > ul > li {
   border-radius: 0.75rem;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .md-typeset .grid.cards > ul > li:hover {
-  border-color: var(--csw-blue);
-  box-shadow: var(--csw-glow);
+  border-color: var(--brand-teal);
+  box-shadow: var(--brand-shadow);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li,
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) {
+  background: var(--brand-surface);
+  border-color: var(--brand-border-dark);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li:hover {
+  border-color: var(--brand-teal-bright);
 }
 
 .md-typeset .md-button {
@@ -81,18 +80,28 @@
 }
 
 .md-typeset .md-button--primary {
-  background: var(--csw-blue);
-  border-color: var(--csw-blue);
-  color: #000;
-}
-
-.md-typeset .md-button--primary:hover {
-  background: var(--csw-magenta);
-  border-color: var(--csw-magenta);
+  background: var(--brand-teal);
+  border-color: var(--brand-teal);
   color: #fff;
 }
 
-/* The hero keeps its own h1 size and spacing. */
-.md-typeset .csw-hero h1 {
+.md-typeset .md-button--primary:hover {
+  background: var(--brand-navy);
+  border-color: var(--brand-navy);
+  color: #fff;
+}
+
+/* The hero keeps its own h1 size and spacing, and stays light in both schemes. */
+.md-typeset .brand-hero h1 {
   margin: 0.25rem 0 0.75rem;
+  color: var(--brand-navy);
+}
+
+.md-typeset .brand-hero .md-button:not(.md-button--primary) {
+  color: var(--brand-navy);
+  border-color: var(--brand-navy);
+}
+
+.md-typeset .brand-hero h1 .headerlink {
+  display: none;
 }

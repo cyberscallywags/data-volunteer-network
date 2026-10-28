@@ -5,26 +5,31 @@ hide:
   - toc
 ---
 
-<div class="csw-hero" markdown>
+<div class="brand-hero" markdown>
 
-<div class="csw-hero__text" markdown>
+<div class="brand-hero__text" markdown>
 
-<p class="csw-kicker">Cyber Scallywags · Docs portal</p>
+<p class="brand-kicker">Data Volunteer Network · Docs portal</p>
 
-# Sgaffald
+# Data Volunteer Network
 
-Scaffolding for the next project: an API, a web UI, an admin portal, a mobile app and a
-graph, tested and deployable from the first commit.
+Connecting data skills with charities for a brighter future: an API, a web UI, an admin
+portal, a mobile app and a graph, tested and deployable from the first commit.
 
 [Get started](getting-started.md){ .md-button .md-button--primary }
 [Reference manual](/manual/){ .md-button }
 
+<div class="brand-credit">
+  <img src="assets/images/csw-mark-64.png" width="64" height="64" alt="Cyber Scallywags wolf-head mark">
+  <span>In partnership with <a href="https://cyberscallywags.com">Cyber Scallywags</a></span>
 </div>
 
-<div class="csw-hero__crest">
+</div>
+
+<div class="brand-hero__emblem">
 <picture>
-  <source type="image/webp" srcset="assets/images/csw-crest-256.webp 256w, assets/images/csw-crest-512.webp 512w" sizes="(max-width: 600px) 60vw, 18rem">
-  <img src="assets/images/csw-crest-512.png" width="512" height="738" alt="The Cyber Scallywags crest: a wolf in a flat cap above the words Play, Learn, Share, Grow">
+  <source type="image/webp" srcset="assets/images/brand-emblem-256.webp 256w, assets/images/brand-emblem-512.webp 512w" sizes="(max-width: 600px) 60vw, 18rem">
+  <img src="assets/images/brand-emblem-512.png" width="512" height="512" alt="The Data Volunteer Network emblem: three figures around a bar chart above Welsh valleys, a pit-head and terraced streets, with the words Data Volunteer Network, Connecting Data Skills with Charities for a Brighter Future, and the Cyber Scallywags and DataKind UK logos">
 </picture>
 </div>
 
@@ -76,7 +81,7 @@ graph, tested and deployable from the first commit.
 
     ---
 
-    Play • Learn • Share • Grow. The collective behind the template.
+    Play • Learn • Share • Grow. Our partner, and the collective behind the Sgaffald template.
 
     [About →](about.md)
 

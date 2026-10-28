@@ -1,41 +1,45 @@
-/* Scallywag Neon for Furo: extras beyond the colour variables set in conf.py. */
+/* Data Volunteer Network for Furo: extras beyond the colour variables set in conf.py. */
 
-/* Gradient headline like the site's; the rule under the header uses the same gradient. */
+/* Navy headline, teal h2; light text and bright teal in dark. */
 .content h1 {
   font-weight: 800;
-  background: var(--csw-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--brand-navy);
+}
+
+.content h2 {
+  color: var(--brand-teal);
+}
+
+body[data-theme="dark"] .content h1 {
+  color: var(--brand-fg-dark);
 }
 
 body[data-theme="dark"] .content h2 {
-  color: var(--csw-blue);
+  color: var(--brand-teal-bright);
 }
 
 @media (prefers-color-scheme: dark) {
-  body:not([data-theme="light"]) .content h2 {
-    color: var(--csw-blue);
+  body[data-theme="auto"] .content h1 {
+    color: var(--brand-fg-dark);
+  }
+
+  body[data-theme="auto"] .content h2 {
+    color: var(--brand-teal-bright);
   }
 }
 
 .announcement {
-  border-bottom: 2px solid transparent;
-  border-image: var(--csw-gradient) 1;
-  font-family: var(--csw-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
+  border-bottom: 3px solid transparent;
+  border-image: var(--brand-gradient) 1;
+  font-size: 0.8rem;
 }
 
 .announcement a {
-  color: var(--csw-blue);
+  color: var(--brand-teal-bright);
 }
 
 .sidebar-brand-text {
-  font-family: var(--csw-mono);
   font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .sidebar-logo {
@@ -43,30 +47,30 @@ body[data-theme="dark"] .content h2 {
   border-radius: 50%;
 }
 
-/* sphinx-design cards glow on hover, like the site's cards. */
+/* sphinx-design cards lift on hover. */
 .sd-card {
   border-radius: 0.75rem !important;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .sd-card:hover {
-  border-color: var(--csw-blue) !important;
-  box-shadow: var(--csw-glow) !important;
+  border-color: var(--brand-teal) !important;
+  box-shadow: var(--brand-shadow) !important;
 }
 
-/* Manual home: crest floats right on wide screens, centred above the text on phones. */
-img.csw-crest--float {
+/* Manual home: emblem floats right on wide screens, centred above the text on phones. */
+img.brand-emblem--float {
   width: min(100%, 14rem);
 }
 
 @media (min-width: 62em) {
-  img.csw-crest--float {
+  img.brand-emblem--float {
     float: right;
     margin: 0 0 1rem 2rem;
   }
 }
 
-.content .csw-kicker {
+.content .brand-kicker {
   margin-bottom: 0.25rem;
 }
 
@@ -81,11 +85,11 @@ img.csw-crest--float {
 .mermaid .node polygon,
 .mermaid .node circle,
 .mermaid .node path {
-  stroke: var(--csw-magenta) !important;
+  stroke: var(--brand-teal) !important;
 }
 
 body[data-theme="dark"] .mermaid .node rect,
 body[data-theme="dark"] .mermaid .node polygon,
 body[data-theme="dark"] .mermaid .node path {
-  fill: var(--csw-surface) !important;
+  fill: var(--brand-surface) !important;
 }

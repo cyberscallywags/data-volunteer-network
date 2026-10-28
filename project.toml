@@ -3,9 +3,9 @@
 # The version lives in pyproject.toml.
 
 [project]
-name = "Sgaffald"  # display name: titles, app name, docs
-slug = "sgaffald"  # lower-case: images, compose project, cache keys
-description = "Cyber Scallywags base template: FastAPI, FastUI, Streamlit, Ionic and Neo4j"
+name = "Data Volunteer Network"  # display name: titles, app name, docs
+slug = "data-volunteer-network"  # lower-case: images, compose project, cache keys
+description = "Connects volunteers with organisations that need their data skills"
 year = 2026  # copyright year
 
 [organisation]
@@ -17,7 +17,7 @@ motto = "Play • Learn • Share • Grow"
 # GitHub owner and repository: README badges and the release image prefix,
 # ghcr.io/<owner>/<name> (lower-cased, like the release workflow).
 owner = "cyberscallywags"
-name = "sgaffald"
+name = "data-volunteer-network"
 
 [mobile]
-app_id = "com.cyberscallywags.sgaffald"  # Capacitor appId, reverse-DNS
+app_id = "com.cyberscallywags.datavolunteernetwork"  # Capacitor appId, reverse-DNS
