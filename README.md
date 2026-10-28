@@ -134,7 +134,7 @@ uv lock
 ```
 
 That covers `[project] name`, the `sgaffald[...]` extras, `force-include`, `--cov` and the
-coverage `omit` in `pyproject.toml`, the imports, `docker/entrypoint.sh` and
+coverage `omit` in `pyproject.toml`, the imports, `serve.py` and
 `docs/sphinx/conf.py`. Afterwards, fix the two tests that assert on the old slug or title by
 hand: `tests/unit/test_docs.py` (`PROJECT_SLUG`) and `tests/e2e/test_docs_site.py` (the portal
 `h1` anchor).

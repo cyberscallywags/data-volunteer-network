@@ -117,7 +117,7 @@ addopts = "-ra --strict-markers --cov=data_volunteer_network --cov-report=term-m
 norecursedirs = ["tests/load"]
 
 [tool.coverage.run]
-omit = ["src/data_volunteer_network/admin/*"]
+omit = ["src/data_volunteer_network/admin/*", "src/data_volunteer_network/serve.py"]
 
 # ---------------------------------------------------------------- ruff
 [tool.ruff]

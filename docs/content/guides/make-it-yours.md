@@ -10,7 +10,7 @@ Sgaffald, into another project:
    theme. `uv run task test` fails if one is missed. Set the version in `pyproject.toml`.
 2. **Rename the Python package** (optional): `src/data_volunteer_network` → `src/<name>`,
    then replace the `data_volunteer_network` imports and the package name in `pyproject.toml`,
-   `docker/entrypoint.sh` and the docs. Identity no longer depends on the package name, so a
+   `serve.py` and the docs. Identity no longer depends on the package name, so a
    fork can keep it.
 3. **Model your domain**: replace `Item` in `models.py` and `ItemRepo` in `db.py`. The tests
    show the pattern for each layer, and the [data models](../reference/models.md) page
