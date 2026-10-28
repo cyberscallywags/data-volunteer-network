@@ -5,7 +5,7 @@
 
 Outputs are named for their role (brand-emblem-512.webp), never for the brand, so a rebrand
 replaces the masters and re-runs this without touching a reference. Partner credits (the
-csw-crest-* and csw-mark-* files) are not generated here.
+csw-crest-* and csw-mark-* files in the docs) are not generated, only copied to the apps.
 """
 
 import argparse
@@ -18,6 +18,8 @@ from PIL import Image, ImageDraw
 BRAND = Path("brand")
 DOCS = Path("docs/content/assets/images")
 MOBILE = Path("mobile/src/assets/icon")
+MOBILE_BRAND = Path("mobile/src/assets/brand")
+STATIC = Path("src/data_volunteer_network/static")  # packaged: the web UI and admin serve it
 NAVY = (1, 37, 69)  # the emblem's title navy; letterbox for the social card
 
 
@@ -40,6 +42,11 @@ def mark(root: Path) -> Image.Image:
 
 def banner(root: Path) -> Image.Image:
     return Image.open(root / BRAND / "banner.webp").convert("RGB")
+
+
+def partner_mark(root: Path) -> Image.Image:
+    """The Cyber Scallywags wolf-head mark, kept as the partner credit."""
+    return Image.open(root / DOCS / "csw-mark-64.png").convert("RGB")
 
 
 def social_card(root: Path) -> Image.Image:
@@ -77,6 +84,11 @@ OUTPUTS: dict[Path, Callable[[Path], Image.Image]] = {
     MOBILE / "favicon.png": lambda r: square(mark(r), 64),
     MOBILE / "apple-touch-icon.png": lambda r: square(mark(r), 180),
     MOBILE / "icon-512.png": lambda r: square(mark(r), 512),
+    MOBILE_BRAND / "brand-emblem-256.webp": lambda r: square(emblem(r), 256),
+    MOBILE_BRAND / "csw-mark-64.png": partner_mark,
+    STATIC / "brand-mark-128.png": lambda r: square(mark(r), 128),
+    STATIC / "brand-favicon-32.png": lambda r: square(mark(r), 32),
+    STATIC / "csw-mark-64.png": partner_mark,
 }
 
 

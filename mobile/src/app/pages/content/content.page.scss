@@ -18,6 +18,28 @@
     opacity: 0.9;
   }
 
+  .emblem {
+    display: block;
+    width: min(50vw, 160px);
+    height: auto;
+    margin: 0 0 16px;
+  }
+
+  // The collective (Cyber Scallywags) credited as partner, with its wolf-head mark.
+  .credit {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 16px;
+    font-size: 0.9em;
+
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+  }
+
   .tagline {
     margin-bottom: 12px;
     font-size: 1.1em;

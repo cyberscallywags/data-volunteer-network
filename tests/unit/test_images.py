@@ -27,8 +27,17 @@ def test_every_output_is_committed():
     assert not missing, f"run `uv run task images`: {missing}"
 
 
-def test_outputs_are_generated_at_their_named_size(tmp_path):
+def fork(tmp_path: Path) -> Path:
+    """The masters plus the partner mark, which the apps receive a copy of."""
     shutil.copytree(ROOT / "brand", tmp_path / "brand")
+    partner = build_images.DOCS / "csw-mark-64.png"
+    (tmp_path / partner).parent.mkdir(parents=True)
+    shutil.copy(ROOT / partner, tmp_path / partner)
+    return tmp_path
+
+
+def test_outputs_are_generated_at_their_named_size(tmp_path):
+    fork(tmp_path)
     assert build_images.main(["--root", str(tmp_path)]) == 0
     for rel in build_images.OUTPUTS:
         with Image.open(tmp_path / rel) as im:

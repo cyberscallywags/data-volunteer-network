@@ -36,6 +36,25 @@ async def test_landing_is_themed_from_the_site_manifest(ui_client):
     assert f"<title>{get_site().brand.name}</title>" in r.text
 
 
+async def test_landing_has_the_brand_favicon(ui_client):
+    r = await ui_client.get("/")
+    assert 'href="/static/brand-favicon-32.png"' in r.text
+    assert (await ui_client.get("/static/brand-favicon-32.png")).status_code == 200
+
+
+async def test_welcome_opens_on_the_brand_mark(ui_client):
+    r = await ui_client.get("/api/")
+    assert '"src":"/static/brand-mark-128.png"' in r.text.replace(" ", "")
+    assert (await ui_client.get("/static/brand-mark-128.png")).status_code == 200
+
+
+async def test_every_page_credits_the_partner(ui_client):
+    r = await ui_client.get("/api/items")
+    assert f"In partnership with {get_site().brand.collective}" in r.text
+    assert '"src":"/static/csw-mark-64.png"' in r.text.replace(" ", "")
+    assert (await ui_client.get("/static/csw-mark-64.png")).status_code == 200
+
+
 async def test_welcome_renders_the_manifest(ui_client):
     r = await ui_client.get("/api/")
     assert r.status_code == 200
