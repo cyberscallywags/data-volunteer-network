@@ -42,7 +42,7 @@ def test_images_scale_with_the_page(page: Page, path: str, viewport):
 
 def test_portal_is_light_first_with_the_hero_image(page: Page):
     page.goto(DOCS)
-    expect(page.locator("h1#sgaffald")).to_have_text("Sgaffald¶")
+    expect(page.locator("h1#data-volunteer-network")).to_have_text(f"{get_meta().name}¶")
     assert page.evaluate("getComputedStyle(document.body).backgroundColor") == LIGHT
     hero = page.locator(".brand-hero__emblem img")
     expect(hero).to_be_visible()

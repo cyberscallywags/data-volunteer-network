@@ -1,6 +1,7 @@
 # Make it yours
 
-Sgaffald is a template. To turn it into a real project:
+This project grew from Sgaffald, the Cyber Scallywags template. To turn it, or a fresh copy of
+Sgaffald, into another project:
 
 1. **Set the identity**: edit `project.toml` (name, slug, description, organisation,
    GitHub owner and repository, mobile app id), then run `uv run task sync`. That rewrites

@@ -9,12 +9,12 @@ hide:
 
 <div class="brand-hero__text" markdown>
 
-<p class="brand-kicker">Cyber Scallywags · Docs portal</p>
+<p class="brand-kicker">Data Volunteer Network · Docs portal</p>
 
-# Sgaffald
+# Data Volunteer Network
 
-Scaffolding for the next project: an API, a web UI, an admin portal, a mobile app and a
-graph, tested and deployable from the first commit.
+Connecting data skills with charities for a brighter future: an API, a web UI, an admin
+portal, a mobile app and a graph, tested and deployable from the first commit.
 
 [Get started](getting-started.md){ .md-button .md-button--primary }
 [Reference manual](/manual/){ .md-button }
@@ -81,7 +81,7 @@ graph, tested and deployable from the first commit.
 
     ---
 
-    Play • Learn • Share • Grow. The collective behind the template.
+    Play • Learn • Share • Grow. Our partner, and the collective behind the Sgaffald template.
 
     [About →](about.md)
 

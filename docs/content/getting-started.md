@@ -1,7 +1,8 @@
 # Getting started
 
-Sgaffald is the Cyber Scallywags base template: the smallest stack that connects every
-part and is ready to be renamed and grown into a real project.
+Data Volunteer Network connects volunteers with organisations that need their data skills.
+It grew from Sgaffald, the Cyber Scallywags base template: the smallest stack that connects
+every part, ready to be renamed and grown into a real project.
 
 ## What you need
 
@@ -81,5 +82,5 @@ uv run playwright uninstall --all      # remove every downloaded browser...
 uv run playwright install chromium     # ...and fetch back the one the tests use
 ```
 
-To share or archive the template, use `git archive HEAD -o data_volunteer_network.zip` rather than zipping
+To share or archive the template, use `git archive HEAD -o data-volunteer-network.zip` rather than zipping
 the folder, so only tracked files go in.

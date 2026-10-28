@@ -1,4 +1,4 @@
-# Sgaffald reference manual
+# Data Volunteer Network reference manual
 
 ```{image} assets/images/brand-emblem-512.png
 :alt: The Data Volunteer Network emblem: three figures around a bar chart above Welsh valleys
@@ -8,7 +8,7 @@
 {.brand-kicker}
 Cyber Scallywags · Reference manual
 
-The Sphinx edition of the Sgaffald docs: the same pages as the [portal](/), plus the
+The Sphinx edition of the Data Volunteer Network docs: the same pages as the [portal](/), plus the
 [Python API](reference/python-api-sphinx.md) generated from docstrings.
 
 {.brand-credit}

@@ -136,7 +136,11 @@ uv lock
 That covers `[project] name`, the `sgaffald[...]` extras, `force-include`, `--cov` and the
 coverage `omit` in `pyproject.toml`, the imports, `docker/entrypoint.sh` and
 `docs/sphinx/conf.py`. Afterwards, fix the two tests that assert on the old slug or title by
-hand: `tests/unit/test_docs.py` (`PROJECT_SLUG`) and `tests/e2e/test_docs_site.py` (`h1#sgaffald`).
+hand: `tests/unit/test_docs.py` (`PROJECT_SLUG`) and `tests/e2e/test_docs_site.py` (the portal
+`h1` anchor).
+The replacement also turns the Neo4j test password `sgaffald-test-only` into
+`<package>-test-only`; that still works, but the slug form (`data-volunteer-network-test-only`)
+reads better.
 
 ### 6. Model the domain
 
