@@ -1,6 +1,6 @@
 # About Cyber Scallywags
 
-![The Cyber Scallywags crest: a wolf in a flat cap above the words Cyber Scallywags, Play, Learn, Share, Grow](assets/images/csw-crest-512.png){.csw-crest}
+![The Cyber Scallywags crest: a wolf in a flat cap above the words Cyber Scallywags, Play, Learn, Share, Grow](assets/images/csw-crest-512.png){.brand-emblem}
 
 **PLAY • LEARN • SHARE • GROW**
 

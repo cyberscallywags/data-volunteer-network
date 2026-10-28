@@ -48,34 +48,35 @@ flowchart LR
 
 Use Markdown both engines understand: headings, tables, fenced code, `mermaid` fences, and
 links to other `.md` files. Images take an optional class in braces, for example
-`![Crest](../assets/images/csw-crest-512.png){.csw-crest}`. Keep engine-specific syntax
+`![Emblem](../assets/images/brand-emblem-512.png){.brand-emblem}`. Keep engine-specific syntax
 (Zensical grid cards, Sphinx directives) to the two home pages and the Python API pages.
 
-## The Scallywag Neon theme
+## The Data Volunteer Network theme
 
-Both sites share the look of [cyberscallywags.com](https://cyberscallywags.com):
+Both sites use the colours of the Data Volunteer Network emblem (see `brand/README.md`):
 
 | Token | Value | Use |
 |---|---|---|
-| Night | `#0b0e14` | Page background (dark) |
-| Surface | `#161b22` | Header, sidebar |
-| Card | `#1d242e` | Cards, code blocks |
-| Border | `#30363d` | Rules, outlines |
-| Scallywag blue | `#00e5ff` | Links, accents |
-| Scallywag magenta | `#ff007f` | Hover, highlights |
+| Navy | `#012545` | Header, headings, primary text |
+| Teal | `#007986` | Links, h2, primary buttons |
+| Orange | `#fe6136` | Accents and rules only (3:1 on white, not for text) |
+| Orange ink | `#c2410c` | Orange text on white (WCAG AA) |
+| Sky | `#eef6f7` | Hero background |
+| Night | `#0b1a2b` | Page background (dark scheme) |
+| Bright teal | `#4fc3cc` | Links in the dark scheme |
 
-Dark is the default; the light scheme swaps in deeper teal and magenta so text keeps WCAG AA
-contrast on white. Headings carry the site's blue-to-magenta gradient, small labels use
-monospace capitals, and cards glow blue on hover.
+Light is the default; readers can switch to dark, which swaps in brighter teal and a softer
+orange so text keeps WCAG AA contrast on navy. The header carries a teal-to-orange rule, small
+labels use monospace capitals, and cards lift on hover.
 
-`docs/content/assets/stylesheets/scallywag.css` holds the tokens and shared pieces (hero,
-crest, kicker labels). `zensical.css` and `docs/sphinx/_static/furo.css` map the tokens onto
-each theme's own variables.
+`docs/content/assets/stylesheets/brand.css` holds the tokens and shared pieces (hero,
+emblem, kicker labels, partner credit). `zensical.css` and `docs/sphinx/_static/furo.css` map
+the tokens onto each theme's own variables.
 
 ## Images
 
 Images live in `docs/content/assets/images`. Every image scales to its container
-(`max-width: 100%; height: auto`), and the crest is capped with
+(`max-width: 100%; height: auto`), and the emblem is capped with
 `width: min(100%, 18rem)` so it never overflows a phone screen. The portal hero serves WebP
 at 256 or 512 px through `srcset`, so phones download the small one.
 

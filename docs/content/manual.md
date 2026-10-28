@@ -2,10 +2,10 @@
 
 ```{image} assets/images/csw-crest-512.png
 :alt: The Cyber Scallywags crest
-:class: csw-crest csw-crest--float
+:class: brand-emblem brand-emblem--float
 ```
 
-{.csw-kicker}
+{.brand-kicker}
 Cyber Scallywags · Reference manual
 
 The Sphinx edition of the Sgaffald docs: the same pages as the [portal](/), plus the

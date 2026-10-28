@@ -29,7 +29,7 @@ Every layer is tested, from pure functions to a real phone browser against the f
   the mobile nginx proxy, CORS for native origins, and the docs container serving both sites.
 - **Browser**: the FastUI form flow, the admin portal and the mobile app on an emulated
   Pixel 7, reading Neo4j directly so the app cannot fake persistence. The docs are checked at
-  phone and desktop widths: no sideways scrolling, every image inside the screen, dark first.
+  phone and desktop widths: no sideways scrolling, every image inside the screen, light first.
 - **Load**: a 20-second Locust smoke against the API.
 
 ## Markers

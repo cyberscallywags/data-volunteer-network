@@ -17,7 +17,7 @@ exclude_docs = """
 manual.md
 reference/python-api-sphinx.md
 """
-extra_css = ["assets/stylesheets/scallywag.css", "assets/stylesheets/zensical.css"]
+extra_css = ["assets/stylesheets/brand.css", "assets/stylesheets/zensical.css"]
 
 nav = [
   { "Home" = "index.md" },
@@ -76,16 +76,16 @@ features = [
 text = false
 code = false
 
-# Dark first, like cyberscallywags.com; readers can switch.
-[[project.theme.palette]]
-scheme = "slate"
-toggle.icon = "lucide/sun"
-toggle.name = "Switch to light mode"
-
+# Light first, matching the Data Volunteer Network artwork; readers can switch.
 [[project.theme.palette]]
 scheme = "default"
 toggle.icon = "lucide/moon"
 toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to light mode"
 
 # sync:social
 [[project.extra.social]]

@@ -153,7 +153,7 @@ The tests show the pattern for each layer.
 - `docs/content/assets/images/`: hero, logo, crest and favicon. Update the hero path at the top
   of this README and `logo` in `docs/zensical.toml`.
 - `mobile/src/assets/icon/favicon.png`
-- `docs/content/assets/stylesheets/scallywag.css`
+- `docs/content/assets/stylesheets/brand.css`
 
 ### 8. Environments
 

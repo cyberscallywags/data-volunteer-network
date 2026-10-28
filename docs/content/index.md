@@ -5,11 +5,11 @@ hide:
   - toc
 ---
 
-<div class="csw-hero" markdown>
+<div class="brand-hero" markdown>
 
-<div class="csw-hero__text" markdown>
+<div class="brand-hero__text" markdown>
 
-<p class="csw-kicker">Cyber Scallywags · Docs portal</p>
+<p class="brand-kicker">Cyber Scallywags · Docs portal</p>
 
 # Sgaffald
 
@@ -21,7 +21,7 @@ graph, tested and deployable from the first commit.
 
 </div>
 
-<div class="csw-hero__crest">
+<div class="brand-hero__emblem">
 <picture>
   <source type="image/webp" srcset="assets/images/csw-crest-256.webp 256w, assets/images/csw-crest-512.webp 512w" sizes="(max-width: 600px) 60vw, 18rem">
   <img src="assets/images/csw-crest-512.png" width="512" height="738" alt="The Cyber Scallywags crest: a wolf in a flat cap above the words Play, Learn, Share, Grow">
