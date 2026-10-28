@@ -5,8 +5,8 @@
 [project]
 # Between the sync: markers, generated from project.toml by `uv run task sync`.
 # sync:identity
-site_name = "Sgaffald"
-site_description = "Cyber Scallywags base template: FastAPI, FastUI, Streamlit, Ionic and Neo4j"
+site_name = "Data Volunteer Network"
+site_description = "Connects volunteers with organisations that need their data skills"
 site_author = "Cyber Scallywags"
 copyright = "© 2026 Cyber Scallywags · Play • Learn • Share • Grow"
 # /sync:identity

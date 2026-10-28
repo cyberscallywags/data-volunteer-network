@@ -9,7 +9,7 @@ import pytest
 from sgaffald import docgen
 from sgaffald.api.main import app
 from sgaffald.config import Settings
-from sgaffald.meta import load_meta
+from sgaffald.meta import get_meta, load_meta
 
 ROOT = Path(__file__).parents[2]
 DOCS = ROOT / "docs"
@@ -76,7 +76,7 @@ def test_tasks_page_lists_every_task(pages):
 
 
 def test_configuration_lists_the_project_env_file(pages):
-    assert "| `PROJECT_SLUG` | `sgaffald` |" in pages["configuration.md"]
+    assert f"| `PROJECT_SLUG` | `{get_meta().slug}` |" in pages["configuration.md"]
 
 
 def test_project_metadata_page_shows_identity_and_generated_copies(pages):

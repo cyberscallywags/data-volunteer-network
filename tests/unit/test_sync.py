@@ -36,8 +36,8 @@ def test_renaming_the_project_updates_every_copy(fork):
     # [repository] first, whatever it holds, so the slug swap below cannot touch it
     text = re.sub(r'^owner = ".*"', 'owner = "Criw"', text, flags=re.M)
     text = re.sub(r'(\[repository\][^\[]*?^name = )"[^"]*"', r'\1"Castell"', text, flags=re.M)
-    for old, new in [('"Sgaffald"', '"Castell"'), ('"sgaffald"', '"castell"')]:
-        text = text.replace(old, new)
+    text = re.sub(r'^(\[project\][^\[]*?^name = )"[^"]*"', r'\1"Castell"', text, flags=re.M)
+    text = re.sub(r'^slug = "[^"]*"', 'slug = "castell"', text, flags=re.M)
     project.write_text(text)
 
     assert sync_meta.main(["--root", str(fork)]) == 0
