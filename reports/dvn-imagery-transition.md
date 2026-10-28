@@ -3,120 +3,111 @@
 Checklist for replacing the Sgaffald / Cyber Scallywags imagery with Data Volunteer Network (DVN)
 branding. Work top to bottom: the decisions in phase 0 change what later phases produce.
 
-Source artwork today: `../DataVolunteerNetwork/assets/imgs/` (separate repo).
+Done on branch `4-refactor-to-reflect-the-data-volunteer-network`, one commit per phase (see
+`git log`). Items still open are unticked and marked **Open**.
+
+Source artwork: `cyberscallywags/DataVolunteerNetwork`, `assets/imgs/`, now copied into `brand/`.
 
 ## Phase 0: Decisions
 
-- [ ] Choose the docs theme direction: keep dark-first ("Scallywag Neon") with DVN accents, or
-      move to a light theme that matches the DVN artwork
-- [ ] Pick one banner: `Data Volunteer Network Banner.png` (identical to `Banner-1.png`) or
-      `Data Volunteer Network_ Connecting Communities-2.png`
-- [ ] Confirm we may use the DataKind UK logo, and how (it is baked into the banner and emblem)
+- [x] Docs theme direction: **light-first** with the DVN palette; dark mode re-tinted to DVN
+      colours and still available through the toggle
+- [x] Banner: `Data Volunteer Network Banner.png` (`Banner-1.png` is a byte-identical copy)
+- [ ] **Open:** confirm we may use the DataKind UK logo, and how (it is baked into the banner
+      and emblem)
 - [x] Decide whether the CSW crest stays: **yes, as a partner credit on every surface**
       (docs portal, manual, About, README, web UI, admin, mobile). The DVN emblem and mark lead;
       the crest sits alongside as "in partnership with Cyber Scallywags"
 - [x] Decide whether the CSW wolf-head mark stays: **yes, as the small-size partner credit**
       (footers, sidebars, app headers) where the full crest would be too tall to read
-- [ ] Decide whether the project identity is renamed as part of this work (`project.toml` name,
-      slug, description, repository, mobile `app_id`) or tracked separately
-- [ ] Agree the DVN palette hex values (navy, teal, orange), sampled from the artwork
+- [x] Project identity: **full rename**, including the Python package
+      (`sgaffald` → `data_volunteer_network`), slug, repository and mobile `app_id`
+- [x] DVN palette, sampled from the emblem: navy `#012545`, teal `#007986`, orange `#fe6136`
 
 ## Phase 1: Prepare source artwork
 
-- [ ] Request or create a text-free DVN mark (figures and bar-chart compass), ideally SVG,
-      for favicons and nav logos
-- [ ] Request a transparent-background version of the emblem (current PNGs have no alpha)
-- [ ] Create `brand/` in this repo with kebab-case masters: `emblem.png`, `banner.png`,
-      `mark.svg`
-- [ ] Write alt text for each master (the artwork has baked-in text, so screen readers rely on it)
+- [ ] **Open:** a text-free DVN mark (figures and bar-chart compass), ideally SVG.
+      `brand/mark.png` is a placeholder cropped from the emblem; the spec is in `brand/README.md`
+- [ ] **Open:** a transparent-background emblem. Until then `scripts/build_images.py` cuts the
+      emblem to its circle
+- [x] `brand/` created with `emblem.webp`, `banner.webp` and `mark.png` (WebP masters keep
+      them under the 500 KB pre-commit limit)
+- [x] Alt text written for the emblem, banner and partner marks
 
 ## Phase 2: Generate variants
 
-- [ ] Add Pillow as a dev dependency
-- [ ] Add `scripts/build_images.py`, run by `uv run task sync`, that writes role-named files to
-      `docs/content/assets/images/` and `mobile/src/assets/icon/`:
-  - [ ] `brand-emblem-256.webp`, `brand-emblem-512.webp`, `brand-emblem-512.png`
-  - [ ] `brand-banner-1280.webp`, `brand-banner-2560.webp`
-  - [ ] `brand-mark-64.png`, `brand-mark-128.png`
-  - [ ] `favicon-32.png`, `apple-touch-icon-180.png`, `icon-512.png`
-  - [ ] `og-image-1200x630.png` (social preview)
-- [ ] Keep the existing `csw-crest-*` and `csw-mark-*` files as the partner-credit set: crest
-      for large placements, wolf-head mark for small ones; add WebP versions of
-      `csw-mark-64/128`
-- [ ] Add a unit test in `tests/unit/test_sync.py` that the script produces every expected file
+- [x] Pillow added to the dev group
+- [x] `scripts/build_images.py`, run by `uv run task images` (a separate task from `sync`,
+      because image encoding is not byte-stable across Pillow versions):
+  - [x] `brand-emblem-256.webp`, `brand-emblem-512.webp`, `brand-emblem-512.png`
+  - [x] `brand-banner-960.webp`, `brand-banner-1920.webp` (the master is 1983 px wide, so no
+        2560)
+  - [x] `brand-mark-64.png`, `brand-mark-128.png`
+  - [x] `brand-favicon-32.png`, `brand-apple-touch-icon-180.png`, mobile `icon-512.png`
+  - [x] `brand-og-1200x630.jpg` (JPEG: the PNG was 724 KB)
+  - [x] App copies in `src/data_volunteer_network/static/` and `mobile/src/assets/brand/`
+- [x] Keep the existing `csw-crest-*` and `csw-mark-*` files as the partner-credit set
+- [ ] Skipped: WebP versions of `csw-mark-64/128` (7 KB and 21 KB PNGs; little to gain)
+- [x] `tests/unit/test_images.py`: every output exists, matches its named size, and the
+      emblem's corners are transparent
 
 ## Phase 3: Swap references
 
-- [ ] README hero: [README.md:3](../README.md) → `brand-banner-*.webp`; update the
-      images note at [README.md:153-155](../README.md)
-- [ ] Docs portal hero: [docs/content/index.md:24-29](../docs/content/index.md): `srcset`, `src`,
-      `width`/`height` (emblem is square, the crest was 512×738) and alt text
-- [ ] Docs portal kicker: [docs/content/index.md:12](../docs/content/index.md)
-      ("Cyber Scallywags · Docs portal")
-- [ ] About page: [docs/content/about.md:3](../docs/content/about.md): DVN emblem as the lead
-      image; keep the CSW crest as the partner credit and reword its alt text accordingly
-- [ ] Manual home: [docs/content/manual.md:3-5](../docs/content/manual.md): DVN emblem; move the
-      CSW crest to a partner-credit position
-- [ ] Partner-credit block (CSW crest + "in partnership with Cyber Scallywags", linked to
-      cyberscallywags.com): add to the docs portal hero or footer and the Sphinx manual footer,
-      as one shared snippet/style in `scallywag.css`
-- [ ] README: add the partner-credit line with the CSW crest under the DVN banner
-- [ ] Zensical logo and favicon: [docs/zensical.toml:59-60](../docs/zensical.toml)
-- [ ] Sphinx logo and favicon: [docs/sphinx/conf.py:61-62](../docs/sphinx/conf.py)
-- [ ] Docs writing guide example: [docs/content/services/docs.md:51](../docs/content/services/docs.md)
-- [ ] Mobile favicon: [mobile/src/index.html:15](../mobile/src/index.html); add an
-      `apple-touch-icon` link
-- [ ] Add Open Graph / Twitter card `og:image` meta to the docs portal
+- [x] README hero → `brand-banner-1920.webp`, partner credit line, "Replace images" step
+- [x] Docs portal hero: emblem `srcset`, 512×512, alt text, kicker and `h1`
+- [x] About page: the page is about Cyber Scallywags, so the crest stays its lead image as the
+      partner credit; it now notes the DVN partnership ("Built on Sgaffald" section)
+- [x] Manual home: DVN emblem, CSW wolf-head credit below the intro
+- [x] Partner-credit block (`.brand-credit`) on the portal hero and manual home
+- [x] Zensical logo and favicon; Sphinx logo and favicon
+- [x] Docs writing guide example
+- [x] Mobile favicon regenerated in place; `apple-touch-icon` link added
+- [x] `og:image` / Twitter card / apple-touch-icon on every portal page
+      (`docs/overrides/main.html`)
+- [ ] **Open:** set `site_url` in `docs/zensical.toml` once the docs have a public address, so
+      `og:image` is an absolute URL
 
 ## Phase 4: Colours and theme
 
-- [ ] Set DVN colours in [src/sgaffald/content/site.json:6-10](../src/sgaffald/content/site.json),
-      then run `uv run task sync` (regenerates `mobile/src/theme/_brand.scss`)
-- [ ] Rework [scallywag.css:1-23](../docs/content/assets/stylesheets/scallywag.css) tokens per the
-      phase 0 theme decision; rename `--csw-*` to `--brand-*`
-- [ ] Generate those tokens from `site.json` in `scripts/sync_meta.py`, as `_brand.scss` already is
-- [ ] Update [zensical.css](../docs/content/assets/stylesheets/zensical.css) and
-      [furo.css](../docs/sphinx/_static/furo.css) for the renamed tokens and new palette
-- [ ] Revisit [dark-first.js](../docs/sphinx/_static/dark-first.js) if moving to light-first
-- [ ] Rename `.csw-hero`, `.csw-crest`, `.csw-kicker` classes to `brand-*` across CSS and Markdown
-- [ ] Check WCAG AA contrast for text on the new colours in both light and dark schemes
+- [x] DVN colours and tagline in `site.json`, then `uv run task sync`
+- [x] `scallywag.css` → `brand.css`; `--csw-*` → `--brand-*`
+- [ ] **Open:** generate the `brand.css` colour tokens from `site.json` in
+      `scripts/sync_meta.py`, as `_brand.scss` already is. They are hand-set to the same values
+      today
+- [x] `zensical.css` and `furo.css` rewritten for the new tokens
+- [x] `dark-first.js` → `light-first.js`; Zensical lists the light scheme first
+- [x] `.csw-hero`/`.csw-crest`/`.csw-kicker` → `.brand-hero`/`.brand-emblem`/`.brand-kicker`
+- [x] WCAG AA checked: teal on white 5.2:1, white on teal 5.2:1, orange-ink `#c2410c` 5.2:1,
+      bright teal on night 8.4:1. Plain orange (3:1) is used only for rules and accents
 
 ## Phase 5: Show the brand in the apps
 
-- [ ] Admin (Streamlit): set `page_icon` and `st.logo` from the DVN mark in
-      [src/sgaffald/admin/app.py](../src/sgaffald/admin/app.py)
-- [ ] Web UI (FastUI): add the mark to the page header/navbar in
-      [src/sgaffald/ui/main.py](../src/sgaffald/ui/main.py)
-- [ ] Mobile welcome hero: add the emblem to
-      [content.page.html](../mobile/src/app/pages/content/content.page.html)
-- [ ] Add the CSW partner credit to the admin sidebar, the web UI footer and the mobile
-      welcome page (or menu footer): wolf-head mark at small sizes, crest where there is room
-- [ ] If native builds are planned: generate icons and splash screens with `@capacitor/assets`
-      from `brand/`
+- [x] Admin (Streamlit): `page_icon`, `st.logo` and a sidebar partner credit
+- [x] Web UI (FastUI): `/static` mount, favicon, mark on the welcome page, credit on every page
+- [x] Mobile: emblem in the welcome hero; credit on welcome and About
+- [x] `collective_url` set, so mobile About shows "Visit Cyber Scallywags"
+- [ ] Not applicable yet: Capacitor native icons and splash screens (no `android/` or `ios/`
+      projects). When added, run `@capacitor/assets` from `brand/`
 
 ## Phase 6: Clean up
 
-- [ ] Keep `csw-crest-256.webp`, `csw-crest-512.png`, `csw-crest-512.webp`, `csw-mark-64.png`,
-      `csw-mark-128.png` (partner credit)
-- [ ] Delete the CSW favicon `favicon.png` once the DVN favicon replaces it
-- [ ] Delete unused files: `sgaffald-hero.svg`, `sgaffald-hero.webp`, `sgaffald-logo.svg`,
-      `sgaffald-logo-512.png`, `mobile/src/assets/shapes.svg`
-- [ ] Grep for leftovers: `sgaffald-`, `Scallywag Neon`; check every remaining `crest` and
-      `csw-mark` reference is a partner credit, not the primary logo (in particular the
-      `zensical.toml` and `conf.py` logo settings must point at the DVN mark)
+- [x] Kept the partner credits `csw-crest-256.webp`, `csw-crest-512.png`, `csw-crest-512.webp`,
+      `csw-mark-64.png` and `csw-mark-128.png`
+- [x] Deleted `favicon.png`, `sgaffald-hero.svg`, `sgaffald-hero.webp`, `sgaffald-logo.svg`,
+      `sgaffald-logo-512.png` and `mobile/src/assets/shapes.svg`
+- [x] Grepped for leftovers. The remaining `sgaffald` mentions are the README's
+      template-origin instructions and the upstream repository name, both intentional
 
 ## Phase 7: Tests and verification
 
-- [ ] Update [tests/integration/test_stack.py:95,99](../tests/integration/test_stack.py) to assert
-      the DVN emblem loads, and keep a check that the CSW crest partner credit is served
-- [ ] Update [tests/e2e/test_docs_site.py:43-50](../tests/e2e/test_docs_site.py): the hero now
-      shows the DVN emblem; add a check that the CSW partner credit is visible; adjust the theme
-      expectation
-- [ ] Update [mobile content.page.spec.ts](../mobile/src/app/pages/content/content.page.spec.ts)
-      if the hero gains an image
-- [ ] Run unit, integration, e2e and mobile tests
-- [ ] Visual check of docs portal, manual, web UI, admin and mobile at phone and desktop widths,
-      light and dark
-- [ ] Check page weight: hero image under ~200 KB
-- [ ] Update [docs/content/guides/make-it-yours.md](../docs/content/guides/make-it-yours.md) to
-      describe the `brand/` folder and generation step
+- [x] Integration test checks the emblem, `og:image`, the credit and that the crest is served
+- [x] Docs e2e test: light-first background, emblem hero (WebP), credit, new `h1` anchor
+- [x] Mobile spec: emblem and partner credit
+- [x] Ran: Python lint and unit tests, mobile lint and unit tests, the strict docs build, and
+      the docs e2e suite against a local build
+- [ ] **Open:** run `uv run task verify` (Docker stack: integration, full browser and load
+      tests); not run on this branch yet
+- [x] Visual check: docs portal (light, dark, phone), manual, and the mobile welcome page
+- [ ] **Open:** visual check of the web UI and admin against a running stack
+- [x] Page weight: portal hero emblem 68 KB (WebP 512), README banner 218 KB
+- [x] Updated `make-it-yours.md` and `services/docs.md` for `brand/` and `task images`

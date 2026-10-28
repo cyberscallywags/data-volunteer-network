@@ -75,10 +75,15 @@ the tokens onto each theme's own variables.
 
 ## Images
 
-Images live in `docs/content/assets/images`. Every image scales to its container
-(`max-width: 100%; height: auto`), and the emblem is capped with
-`width: min(100%, 18rem)` so it never overflows a phone screen. The portal hero serves WebP
-at 256 or 512 px through `srcset`, so phones download the small one.
+Images live in `docs/content/assets/images`. The `brand-*` files are generated from the
+masters in `brand/` by `uv run task images`, so edit the masters, never the outputs; the
+`csw-*` files are the Cyber Scallywags partner credits and are kept as they are.
+
+Every image scales to its container (`max-width: 100%; height: auto`), and the emblem is
+capped with `width: min(100%, 18rem)` so it never overflows a phone screen. The portal hero
+serves WebP at 256 or 512 px through `srcset`, so phones download the small one. Every portal
+page carries an `og:image` social card (`docs/overrides/main.html`); set `site_url` in
+`docs/zensical.toml` once the docs have a public address, so crawlers get an absolute URL.
 
 Zensical rebuilds its whole output folder on every build, so `task docs` always builds the
 portal first and the manual into `site/manual` second. While `task docs_live` is running, read
