@@ -33,6 +33,7 @@ dev = [
     "pre-commit>=4.3",
     "taskipy>=1.14",
     "watchfiles>=1.1",
+    "pillow>=12",
 ]
 e2e = ["pytest-playwright>=0.10.0"]  # browser tests (task test_e2e)
 load = ["locust>=2.42"]  # load tests (task load)
@@ -79,6 +80,7 @@ docs_build = "python -m sgaffald.docgen && zensical build --strict --clean -f do
 [tool.taskipy.tasks]
 clean = { cmd = "rm -rf .venv .pytest_cache .ruff_cache .coverage coverage.xml htmlcov docs/_build docs/.cache mobile/node_modules mobile/.angular mobile/www && find . -name __pycache__ -type d -prune -exec rm -rf {} +", help = "Delete every regenerable directory (then uv sync to rebuild .venv)" }
 sync = { cmd = "python scripts/sync_meta.py", help = "Copy project.toml and site.json into the files that cannot read them" }
+images = { cmd = "python scripts/build_images.py", help = "Generate every brand image size from the masters in brand/" }
 lint = { cmd = "ruff check . && ruff format --check .", help = "Ruff lint + format check" }
 format = { cmd = "ruff format . && ruff check --fix .", help = "Auto-format and fix" }
 hooks = { cmd = "pre-commit run --all-files", help = "Run every pre-commit hook" }
